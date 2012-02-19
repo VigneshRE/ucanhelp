@@ -1,0 +1,19 @@
+%h1 Listing needs
+
+%table
+  %tr
+    %th Description
+    %th Nature
+    %th Severity
+    %th Status
+    %th
+    %th
+    %th
+
+  - @needs.each do |need|
+    %tr
+      %td= need.description
+      %td= need.nature
+      %td= need.severity
+      %td= need.status
+      %td= link_to 'Show', orphanage_need_path(:orphanage_id => need.orphanage_id, :id => need.id)

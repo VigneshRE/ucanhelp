@@ -1,0 +1,34 @@
+%p
+  %b Name:
+  = @orphanage.name
+%p
+  %b Address:
+  = @orphanage.address
+%p
+  %b City:
+  = @orphanage.city
+%p
+  %b Nature:
+  = @orphanage.nature
+%p
+  %b Manager Name:
+  = @orphanage.manager_name
+%p
+  %b Account Details:
+  = @orphanage.account_details
+%p
+  %b Contact Number:
+  = @orphanage.contact_number
+%p
+  %b Email:
+  = @orphanage.email
+
+= link_to 'Needs', orphanage_needs_path(@orphanage)
+\|
+= link_to 'New Need', new_orphanage_need_path(@orphanage)
+\|
+= link_to 'Edit', edit_orphanage_path(@orphanage)
+\|
+= link_to 'Destroy', @orphanage, :confirm => 'Are you sure?', :method => :delete
+\|
+= link_to 'Back', orphanages_path

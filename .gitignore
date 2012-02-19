@@ -1,0 +1,15 @@
+.DS_Store
+.bundle
+public/assets
+db/*.sqlite3
+log/
+tmp/
+*~
+*#
+.idea/
+public/stylesheets/*.css
+tags
+.sass-cache
+.shell_history
+tmtags
+

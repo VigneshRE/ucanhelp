@@ -1,0 +1,31 @@
+%h1 Listing orphanages
+
+%table
+  %tr
+    %th Name
+    %th Address
+    %th City
+    %th Nature
+    %th Manager Name
+    %th Account Details
+    %th Contact Number
+    %th Email
+    %th
+    %th
+    %th
+
+  - @orphanages.each do |orphanage|
+    %tr
+      %td= orphanage.name
+      %td= orphanage.address
+      %td= orphanage.city
+      %td= orphanage.nature
+      %td= orphanage.manager_name
+      %td= orphanage.account_details
+      %td= orphanage.contact_number
+      %td= orphanage.email
+      %td= link_to 'Show', orphanage
+
+%br
+
+= link_to 'New Orphanage', new_orphanage_path
