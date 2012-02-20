@@ -1,0 +1,11 @@
+= form_for([@need, @need.comments.build]) do |f|
+  .field
+    = f.label :commenter
+    %br
+    = f.text_field :commenter
+  .field
+    = f.label :body
+    %br
+    = f.text_area :body
+  .actions
+    = f.submit

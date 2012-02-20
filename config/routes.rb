@@ -3,13 +3,18 @@ Ucanhelp::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  resources :needs, :only => [:index]
+  resources :needs, :only => [:index] do
+    resources :comments, :only => [:create, :destroy]
+  end
+
   match 'login' => 'login#index', :via => :get
   match 'login/login' => 'login#login', :via => :post
   match 'login/logout' => 'login#logout', :via => :get
+
   resources :orphanages do
     resources :needs
   end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -11,6 +11,12 @@
   %b Status:
   = @need.status
 
+%h2 Comments
+= render @need.comments
+
+%h2 Add a comment:
+= render "comments/form"
+
 = link_to 'Edit', edit_orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id)
 \|
 = link_to 'Destroy', orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id), :confirm => 'Are you sure?', :method => :delete
