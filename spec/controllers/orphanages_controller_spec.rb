@@ -150,4 +150,14 @@ describe OrphanagesController do
       session[:secret_password].should == "new_password"
     end
   end
+
+  describe "scopes" do
+    it "should give only admin verified orphanages" do
+      orphanage_1 = Orphanage.create!(valid_attributes.merge(:admin_verified => true), :as => :admin)
+      orphanage_2 = Orphanage.create!(valid_attributes.merge(:admin_verified => true), :as => :admin)
+      orphanage_3 = Orphanage.create!(valid_attributes.merge(:admin_verified => false), :as => :admin)
+      get :index, :admin_verified => true
+      assigns(:orphanages).count.should == 2
+    end
+  end
 end

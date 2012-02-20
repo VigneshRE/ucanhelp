@@ -1,16 +1,25 @@
+= form_tag "/orphanages", :method => :get do
+  .field
+    = label_tag "admin_verified"
+    %br
+    = check_box_tag "admin_verified", true, params[:admin_verified] || false
+  .actions
+    = submit_tag "Refine"
+    = link_to "Clear", orphanages_path
+
 %h1 Listing orphanages
 = paginate @orphanages
-%table
+%table.sortable-table
   %tr
-    %th Name
-    %th Address
-    %th City
-    %th Nature
-    %th Manager Name
-    %th Account Details
-    %th Contact Number
-    %th Email
-    %th Admin Verified
+    %th= sortable "name", "Name"
+    %th= sortable "address", "Address"
+    %th= sortable "city", "City"
+    %th= sortable "nature", "Nature"
+    %th= sortable "manager_name", "Manager Name"
+    %th= sortable "account_details", "Account Details"
+    %th= sortable "contact_number", "Contact Number"
+    %th= sortable "email", "Email"
+    %th= sortable "admin_verified", "Admin Verified"
     %th
     %th
     %th

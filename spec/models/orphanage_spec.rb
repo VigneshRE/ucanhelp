@@ -73,4 +73,15 @@ describe Orphanage do
       orphanage.admin_verified.should be_true
     end
   end
+
+  describe "scopes" do
+    it "should give only admin verified orphanages" do
+      orphanage_1 = Orphanage.create!(orphanage_valid_attributes.merge(:admin_verified => true), :as => :admin)
+      orphanage_2 = Orphanage.create!(orphanage_valid_attributes.merge(:admin_verified => true), :as => :admin)
+      orphanage_3 = Orphanage.create!(orphanage_valid_attributes.merge(:admin_verified => false), :as => :admin)
+
+      Orphanage.count.should == 3
+      Orphanage.admin_verified.count.should == 2
+    end
+  end
 end
