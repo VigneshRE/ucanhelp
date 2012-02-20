@@ -10,6 +10,7 @@ class CreateOrphanages < ActiveRecord::Migration
       t.string :account_details
       t.string :email
       t.string :secret_password
+      t.boolean :admin_verified, :default => false
 
       t.timestamps
     end

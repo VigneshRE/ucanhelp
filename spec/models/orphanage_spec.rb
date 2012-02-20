@@ -38,7 +38,7 @@ describe Orphanage do
       orphanage.needs.should_not be_empty
       orphanage.needs.first.should == need
     end
-    
+
     it "should delete the associated needs" do
       need = Need.new(need_valid_attributes)
       orphanage = Orphanage.new(orphanage_valid_attributes)
@@ -47,18 +47,30 @@ describe Orphanage do
 
       Orphanage.count.should == 1
       Need.count.should == 1
-      
+
       orphanage.destroy
       Orphanage.count.should == 0
       Need.count.should == 0
     end
   end
-  
+
   describe "secret password" do
     it "should populate secret password before creating the orphanage" do
       orphanage = Orphanage.new(orphanage_valid_attributes)
       orphanage.should be_valid
       orphanage.secret_password.should_not be_empty
+    end
+  end
+
+  describe "admin verified orphanage" do
+    it "should not let admin verified to be set by mass assignment" do
+      orphanage = Orphanage.create! orphanage_valid_attributes.merge(:admin_verified => true)
+      orphanage.admin_verified.should be_false
+    end
+
+    it "should let admin verified to be set by mass assignment only as admin user" do
+      orphanage = Orphanage.create!(orphanage_valid_attributes.merge(:admin_verified => true), :as => :admin)
+      orphanage.admin_verified.should be_true
     end
   end
 end

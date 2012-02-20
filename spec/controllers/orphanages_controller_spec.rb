@@ -134,10 +134,20 @@ describe OrphanagesController do
       orphanage_1 = Orphanage.create! valid_attributes
       orphanage_2 = Orphanage.create! valid_attributes.merge(:secret_password => "some other password")
       set_session_password_for(orphanage_2)
-      
+
       put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
       response.should redirect_to(orphanage_path(orphanage_1))
       flash[:notice].should == "You dont have credentials in this orphanage"
+    end
+
+    it "should update the session secret password if orphanage gets updated" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      set_session_password_for(orphanage_1)
+
+      put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:secret_password => "new_password")
+      response.should redirect_to(orphanage_path(orphanage_1))
+      flash[:notice].should == "Orphanage was successfully updated."
+      session[:secret_password].should == "new_password"
     end
   end
 end
