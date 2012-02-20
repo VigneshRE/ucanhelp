@@ -10,6 +10,8 @@ gem "haml-rails"
 gem 'json'
 gem 'inherited_resources'
 gem 'activeadmin'
+gem "kaminari"
+gem "has_scope"
 
 # Gems used only for assets and not required
 # in production environments by default.
