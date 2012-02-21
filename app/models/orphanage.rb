@@ -1,5 +1,6 @@
 class Orphanage < ActiveRecord::Base
   scope :admin_verified, where(:admin_verified => true)
+  scope :city_name, lambda { |city| where("UPPER(city) = ?", city.upcase) unless city.upcase == "ALL"}
   attr_accessible :name, :address, :city, :nature, :manager_name, :contact_number, :account_details, :email
   attr_accessible :name, :address, :city, :nature, :manager_name, :contact_number, :account_details, :email, :secret_password, :admin_verified, :as => :admin
   validates_presence_of :name, :address, :city, :nature, :manager_name, :contact_number, :account_details, :email, :secret_password

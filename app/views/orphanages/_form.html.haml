@@ -14,7 +14,8 @@
     = f.text_field :address
   .field
     = f.label :city
-    = f.text_field :city
+    = f.collection_select(:city, CityList.all, :to_s, :to_s)
+
   .field
     = f.label :nature
     = f.text_field :nature

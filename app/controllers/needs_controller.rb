@@ -2,12 +2,13 @@ class NeedsController < InheritedResources::Base
   belongs_to :orphanage
   before_filter :validate_secret_password, :except => [:show, :index]
   has_scope :page, :default => 1
+  has_scope :severity_type
 
   def index
     if params[:orphanage_id]
       index!
     else
-      @needs = Need.page params[:page]
+      @needs = Need.severity_type(params[:severity_type]).page params[:page]
     end
   end
 

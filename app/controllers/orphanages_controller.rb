@@ -6,6 +6,7 @@ class OrphanagesController < ApplicationController
   after_filter :update_session_secret_password, :only => [:change_secret_password]
   has_scope :page, :default => 1
   has_scope :admin_verified, :type => :boolean
+  has_scope :city_name
 
   def change_secret_password
     return unless request.post?

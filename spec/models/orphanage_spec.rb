@@ -103,5 +103,23 @@ describe Orphanage do
       Orphanage.count.should == 3
       Orphanage.admin_verified.count.should == 2
     end
+
+    it "should give orphanages belongs to the given city" do
+      orphanage_1 = Orphanage.create!(orphanage_valid_attributes.merge(:city => "Bangalore"))
+      orphanage_2 = Orphanage.create!(orphanage_valid_attributes.merge(:city => "Bangalore"))
+      orphanage_3 = Orphanage.create!(orphanage_valid_attributes.merge(:city => "Chennai"))
+
+      Orphanage.count.should == 3
+      Orphanage.city_name("Chennai").count.should == 1
+    end
+
+    it "should give all orphanages if the given city is All" do
+      orphanage_1 = Orphanage.create!(orphanage_valid_attributes.merge(:city => "Bangalore"))
+      orphanage_2 = Orphanage.create!(orphanage_valid_attributes.merge(:city => "Bangalore"))
+      orphanage_3 = Orphanage.create!(orphanage_valid_attributes.merge(:city => "Chennai"))
+
+      Orphanage.count.should == 3
+      Orphanage.city_name("All").count.should == 3
+    end
   end
 end

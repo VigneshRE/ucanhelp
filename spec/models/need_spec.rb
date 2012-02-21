@@ -37,4 +37,16 @@ describe Need do
       need.orphanage.should == orphanage
     end
   end
+
+  describe "scopes" do
+    it "should give needs belong to the severity type" do
+      orphanage = Orphanage.create!(orphanage_valid_attributes)
+      need_1 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :severity => "critical"))
+      need_2 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :severity => "critical"))
+      need_3 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :severity => "low"))
+
+      Need.count.should == 3
+      Need.severity_type("low").count.should == 1
+    end
+  end
 end

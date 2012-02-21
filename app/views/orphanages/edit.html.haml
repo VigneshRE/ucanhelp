@@ -1,40 +1,6 @@
 %h1 Editing orphanage
-- flash.each do |name, msg|
-  = content_tag :div, msg.html_safe, :id => "flash_#{name}", :class => "#{name} alert-message"
-= form_for @orphanage do |f|
-  -if @orphanage.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@orphanage.errors.count, "error")} prohibited this orphanage from being saved:"
-      %ul
-        - @orphanage.errors.full_messages.each do |msg|
-          %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :address
-    = f.text_field :address
-  .field
-    = f.label :city
-    = f.text_field :city
-  .field
-    = f.label :nature
-    = f.text_field :nature
-  .field
-    = f.label :manager_name
-    = f.text_field :manager_name
-  .field
-    = f.label :account_details
-    = f.text_field :account_details
-  .field
-    = f.label :contact_number
-    = f.text_field :contact_number
-  .field
-    = f.label :email
-    = f.text_field :email
-  .actions
-    = f.submit 'Save'
+= render 'form'
 
 = link_to 'Show', @orphanage
 \|
