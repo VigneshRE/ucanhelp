@@ -4,7 +4,6 @@ module ApplicationHelper
   end
 
   def sortable(column, title = nil)
-    puts params.inspect
     title ||= column.titleize
     css_class = (column == sort_column) ? "current #{sort_direction}" : nil
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"

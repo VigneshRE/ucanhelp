@@ -8,7 +8,7 @@ describe OrphanagesController do
   end
 
   def valid_attributes
-    {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com", :secret_password => "something"}
+    {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
 
   def set_session_password_for(orphanage)
@@ -140,14 +140,14 @@ describe OrphanagesController do
       flash[:notice].should == "You dont have credentials in this orphanage"
     end
 
-    it "should update the session secret password if orphanage gets updated" do
+    it "should not update the session secret password if orphanage gets updated" do
       orphanage_1 = Orphanage.create! valid_attributes
       set_session_password_for(orphanage_1)
 
-      put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:secret_password => "new_password")
+      put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new_nature", :secret_password => "new_password")
       response.should redirect_to(orphanage_path(orphanage_1))
-      flash[:notice].should == "Orphanage was successfully updated."
-      session[:secret_password].should == "new_password"
+      session[:secret_password].should_not == "new_password"
+      orphanage_1.nature.should_not == "new_nature"
     end
   end
 
@@ -158,6 +158,90 @@ describe OrphanagesController do
       orphanage_3 = Orphanage.create!(valid_attributes.merge(:admin_verified => false), :as => :admin)
       get :index, :admin_verified => true
       assigns(:orphanages).count.should == 2
+    end
+  end
+  
+  describe "change password" do
+    it "should let the user change the secret password" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      set_session_password_for(orphanage_1)
+
+      post :change_secret_password, :id => orphanage_1.id.to_s, :new_password => "new_password", :confirmed_new_password => "new_password"
+      response.should redirect_to(orphanage_path(orphanage_1))
+      flash[:notice].should == 'Secret Password was successfully updated.'
+      session[:secret_password].should == "new_password"
+    end
+
+    it "should send an email to the user after change password is done" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      set_session_password_for(orphanage_1)
+      mail_message = mock
+      mail_message.should_receive(:deliver)
+      PasswordMailer.should_receive(:change_secret_password).with(orphanage_1).once.and_return(mail_message)
+
+      post :change_secret_password, :id => orphanage_1.id.to_s, :new_password => "new_password", :confirmed_new_password => "new_password"
+      response.should redirect_to(orphanage_path(orphanage_1))
+      flash[:notice].should == 'Secret Password was successfully updated.'
+      session[:secret_password].should == "new_password"
+    end
+
+    it "should not change the secret password if the new password and its confirmation did not match" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      set_session_password_for(orphanage_1)
+
+      post :change_secret_password, :id => orphanage_1.id.to_s, :new_password => "new_password", :confirmed_new_password => "new_password_1"
+      flash[:notice].should == 'New password did not match with new confirmed password.'
+      session[:secret_password].should_not == "new_password"
+    end
+
+    it "should not change the secret password if the new password and its confirmation are empty" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      set_session_password_for(orphanage_1)
+
+      post :change_secret_password, :id => orphanage_1.id.to_s, :new_password => "", :confirmed_new_password => ""
+      flash[:notice].should == 'New password did not match with new confirmed password.'
+      session[:secret_password].should_not == "new_password"
+    end
+
+    it "should not change the secret password in session if the update fails" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      set_session_password_for(orphanage_1)
+      Orphanage.any_instance.stub(:update_attributes).and_return(false)
+
+      post :change_secret_password, :id => orphanage_1.id.to_s, :new_password => "new_password", :confirmed_new_password => "new_password"
+      session[:secret_password].should_not == "new_password"
+    end
+  end
+  
+  describe "forgot secret password" do
+    it "should send secret password details of all the orphanages in an email" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      orphanage_2 = Orphanage.create! valid_attributes
+      mail_message = mock
+      mail_message.should_receive(:deliver)
+      PasswordMailer.should_receive(:forgot_secret_password).once.and_return(mail_message)
+
+      post :forgot_secret_password, :id => orphanage_1.id.to_s, :email => "email@address.com"
+      response.should redirect_to(orphanage_path(orphanage_1))
+      flash[:notice].should == 'Secret password has been mailed to your email address successfully.'
+    end
+
+    it "should redirect to forgot secret password if email is not given" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      orphanage_2 = Orphanage.create! valid_attributes
+
+      post :forgot_secret_password, :id => orphanage_1.id.to_s
+      response.should redirect_to(forgot_secret_password_orphanage_path(orphanage_1))
+      flash[:notice].should == 'Please provide a valid email address.'
+    end
+
+    it "should redirect to forgot secret password if email is not in the valid format" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      orphanage_2 = Orphanage.create! valid_attributes
+
+      post :forgot_secret_password, :id => orphanage_1.id.to_s, :email => "invalid_email_format"
+      response.should redirect_to(forgot_secret_password_orphanage_path(orphanage_1))
+      flash[:notice].should == 'Please provide a valid email address.'
     end
   end
 end

@@ -13,8 +13,13 @@ Ucanhelp::Application.routes.draw do
 
   resources :orphanages do
     resources :needs
+    member do
+      get :change_secret_password
+      post :change_secret_password
+      get :forgot_secret_password
+      post :forgot_secret_password
+    end
   end
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

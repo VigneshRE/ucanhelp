@@ -2,10 +2,43 @@ class OrphanagesController < ApplicationController
   helper_method :sort_column, :sort_direction
   inherit_resources
   respond_to :html, :json
-  before_filter :validate_secret_password, :only => [:edit, :update, :destroy]
-  after_filter :update_session_secret_password, :only => [:update]
+  before_filter :validate_secret_password, :only => [:edit, :update, :destroy, :change_secret_password]
+  after_filter :update_session_secret_password, :only => [:change_secret_password]
   has_scope :page, :default => 1
   has_scope :admin_verified, :type => :boolean
+
+  def change_secret_password
+    return unless request.post?
+    @orphanage = Orphanage.find(params[:id])
+    respond_to do |format|
+      if params[:new_password] == "" or params[:confirmed_new_password] == "" or params[:new_password] != params[:confirmed_new_password]
+        format.html  do
+          flash.now[:notice] = 'New password did not match with new confirmed password.'
+          render :action => "change_secret_password"
+        end
+      elsif @orphanage.update_attributes({:secret_password => params[:new_password]}, :as => :admin)
+        PasswordMailer.change_secret_password(@orphanage).deliver
+        format.html  { redirect_to(orphanage_path(@orphanage),
+                      :notice => 'Secret Password was successfully updated.') }
+        format.json  { head :no_content }
+      else
+        format.html  { render :action => "change_secret_password" }
+        format.json  { render :json => @orphanage.errors,
+                      :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def forgot_secret_password
+    return unless request.post?
+    if !valid_email(params[:email])
+      redirect_to forgot_secret_password_orphanage_path(:id => params[:id]), :notice => 'Please provide a valid email address.'
+    else
+      orphanages = Orphanage.find_all_by_email(params[:email])
+      PasswordMailer.forgot_secret_password(orphanages).deliver if !orphanages.empty?
+      redirect_to orphanage_path(:id => params[:id]), :notice => 'Secret password has been mailed to your email address successfully.'
+    end
+  end
 
   protected
   def collection
@@ -33,5 +66,10 @@ class OrphanagesController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
+  
+  def valid_email(email)
+    return false if !email
+    return email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   end
 end

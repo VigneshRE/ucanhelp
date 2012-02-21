@@ -26,6 +26,14 @@ describe Orphanage do
       orphanage = Orphanage.new(:email => "email@address.com")
       orphanage.errors.values.should_not include(["is not formatted properly"])
     end
+
+    it "should validate that city name should be in the predefined city list" do
+      orphanage = Orphanage.new(orphanage_valid_attributes.merge(:city => "delhi"))
+      orphanage.should_not be_valid
+      orphanage.errors[:city].should include("name not valid")
+      orphanage = Orphanage.new(orphanage_valid_attributes.merge(:city => "chennai"))
+      orphanage.should be_valid
+    end
   end
 
   describe "associated needs" do
@@ -59,6 +67,18 @@ describe Orphanage do
       orphanage = Orphanage.new(orphanage_valid_attributes)
       orphanage.should be_valid
       orphanage.secret_password.should_not be_empty
+    end
+
+    it "should not update the secret password by mass assignment" do
+      orphanage = Orphanage.create(orphanage_valid_attributes)
+      orphanage.update_attributes!(:secret_password => "new_password")
+      orphanage.secret_password.should_not == "new_password"
+    end
+
+    it "should update the secret password as an admin" do
+      orphanage = Orphanage.create(orphanage_valid_attributes)
+      orphanage.update_attributes!({:secret_password => "new_password"}, :as => :admin)
+      orphanage.secret_password.should == "new_password"
     end
   end
 

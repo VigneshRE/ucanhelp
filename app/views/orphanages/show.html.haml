@@ -32,6 +32,10 @@
 \|
 = link_to 'Edit', edit_orphanage_path(@orphanage)
 \|
+= link_to 'Change Secret Password', change_secret_password_orphanage_path(@orphanage)
+\|
+= link_to 'Forgot Secret Password', forgot_secret_password_orphanage_path(@orphanage)
+\|
 = link_to 'Destroy', @orphanage, :confirm => 'Are you sure?', :method => :delete
 \|
 = link_to 'Back', orphanages_path
