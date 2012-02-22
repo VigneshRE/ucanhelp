@@ -19,6 +19,8 @@
 
 = link_to 'Edit', edit_orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id)
 \|
+= link_to 'Close Need', close_orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id)
+\|
 = link_to 'Destroy', orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id), :confirm => 'Are you sure?', :method => :delete
 \|
 = link_to 'Back', orphanage_needs_path(:orphanage_id => @need.orphanage_id)

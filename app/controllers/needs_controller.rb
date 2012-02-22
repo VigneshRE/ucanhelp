@@ -13,6 +13,15 @@ class NeedsController < InheritedResources::Base
     end
   end
 
+  def close
+    need = Need.find(params[:id])
+    if need.update_attributes(:status => Need::CLOSED)
+      redirect_to orphanage_need_path(:id => need.id, :orphanage_id => need.orphanage_id), :notice => "Need status successfully changed."
+    else
+      redirect_to orphanage_need_path(:id => need.id, :orphanage_id => need.orphanage_id), :notice => "Could not change Need status."
+    end
+  end
+
   protected
   def collection
     @needs ||= end_of_association_chain.order("#{sort_column} #{sort_direction}").page params[:page]

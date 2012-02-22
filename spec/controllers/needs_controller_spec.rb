@@ -139,13 +139,34 @@ describe NeedsController do
       orphanage_2 = Orphanage.create(orphanage_valid_attributes.merge(:secret_password => "some other password"))
       set_session_password_for(orphanage_2)
       request.env['HTTP_REFERER'] = "http://test.host" + orphanage_needs_path(@orphanage)
-      
+
       expect {
         post :create, :need => valid_attributes, :orphanage_id => @orphanage.id, :secret_password => "some wrong value"
       }.not_to change(Need, :count).by(1)
-      
+
       response.should redirect_to(:back)
       flash[:notice].should == "You dont have credentials in this orphanage"
+    end
+  end
+
+  describe "close" do
+    it "should change the status of a need to close" do
+      need = Need.create! valid_attributes
+      need.status.should == Need::OPEN
+      get :close, :id => need.id.to_s, :orphanage_id => @orphanage.id
+      response.should redirect_to(orphanage_need_path(:id => need.id, :orphanage_id => @orphanage.id))
+      flash[:notice].should == "Need status successfully changed."
+      need.reload.status.should == Need::CLOSED
+    end
+
+    it "should send a notice if need status change fails" do
+      need = Need.create! valid_attributes
+      need.status.should == Need::OPEN
+      Need.any_instance.stub(:update_attributes).and_return(false)
+      get :close, :id => need.id.to_s, :orphanage_id => @orphanage.id
+      response.should redirect_to(orphanage_need_path(:id => need.id, :orphanage_id => @orphanage.id))
+      flash[:notice].should == "Could not change Need status."
+      need.reload.status.should == Need::OPEN
     end
   end
 end

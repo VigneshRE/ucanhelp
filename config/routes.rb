@@ -12,7 +12,11 @@ Ucanhelp::Application.routes.draw do
   match 'login/logout' => 'login#logout', :via => :get
 
   resources :orphanages do
-    resources :needs
+    resources :needs do
+      member do
+        get :close
+      end
+    end
     member do
       get :change_secret_password
       post :change_secret_password
