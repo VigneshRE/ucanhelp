@@ -1,5 +1,5 @@
 class NeedsController < InheritedResources::Base
-  helper_method :sort_column, :sort_direction, :severity_sort_order
+  helper_method :sort_column, :sort_direction
   belongs_to :orphanage
   before_filter :validate_secret_password, :except => [:show, :index]
   has_scope :page, :default => 1
@@ -29,26 +29,10 @@ class NeedsController < InheritedResources::Base
   end
 
   def sort_column
-    if Need.column_names.include?(params[:sort])
-      if params[:sort] == "severity"
-        severity_sort_order
-      else
-        params[:sort]
-      end
-    else
-      "status"
-    end
+    Need.column_names.include?(params[:sort]) ? params[:sort] : "status"
   end
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
-  end
-
-  def severity_sort_order
-    "CASE
-       WHEN UPPER(severity) = 'CRITICAL' THEN 1
-       WHEN UPPER(severity) = 'MEDIUM' THEN 2
-       WHEN UPPER(severity) = 'LOW' THEN 3
-     END"
   end
 end
