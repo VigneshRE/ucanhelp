@@ -175,7 +175,7 @@ describe OrphanagesController do
       assigns(:orphanages).count.should == 2
     end
   end
-  
+
   describe "change password" do
     it "should let the user change the secret password" do
       orphanage_1 = Orphanage.create! valid_attributes
@@ -227,7 +227,7 @@ describe OrphanagesController do
       session[:secret_password].should_not == "new_password"
     end
   end
-  
+
   describe "forgot secret password" do
     it "should send secret password details of all the orphanages in an email" do
       orphanage_1 = Orphanage.create! valid_attributes
@@ -267,6 +267,26 @@ describe OrphanagesController do
       post :forgot_secret_password, :id => orphanage_1.id.to_s, :email => "invalid_email_format"
       response.should redirect_to(forgot_secret_password_orphanage_path(orphanage_1))
       flash[:notice].should == 'Please provide a valid email address.'
+    end
+  end
+
+  describe "register" do
+    it "should register the orphanage if given registration password is valid" do
+      orphanage_1 = Orphanage.create! valid_attributes
+
+      get :register, :id => orphanage_1.id.to_s, :registration_password => orphanage_1.registration_password
+      response.should be_ok
+      flash[:notice].should == 'Registration is successfully done.'
+      orphanage_1.reload.registered.should be_true
+    end
+
+    it "should not register the orphanage if given registration password is invalid" do
+      orphanage_1 = Orphanage.create! valid_attributes
+
+      get :register, :id => orphanage_1.id.to_s, :registration_password => "invalid_registration_password"
+      response.should be_ok
+      flash[:notice].should == 'Registration failed.'
+      orphanage_1.reload.registered.should be_false
     end
   end
 end

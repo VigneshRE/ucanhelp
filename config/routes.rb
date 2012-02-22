@@ -18,6 +18,7 @@ Ucanhelp::Application.routes.draw do
       end
     end
     member do
+      get :register
       get :change_secret_password
       post :change_secret_password
       get :forgot_secret_password

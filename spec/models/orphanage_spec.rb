@@ -91,6 +91,14 @@ describe Orphanage do
     end
   end
 
+  describe "registration password" do
+    it "should populate registration password before creating an orphanage" do
+      orphanage = Orphanage.new(orphanage_valid_attributes)
+      orphanage.should be_valid
+      orphanage.registration_password.should_not be_empty
+    end
+  end
+
   describe "admin verified orphanage" do
     it "should not let admin verified to be set by mass assignment" do
       orphanage = Orphanage.create! orphanage_valid_attributes.merge(:admin_verified => true)
@@ -111,6 +119,15 @@ describe Orphanage do
 
       Orphanage.count.should == 3
       Orphanage.admin_verified.count.should == 2
+    end
+
+    it "should give only registered orphanages" do
+      orphanage_1 = Orphanage.create!(orphanage_valid_attributes.merge(:registered => true))
+      orphanage_2 = Orphanage.create!(orphanage_valid_attributes.merge(:registered => true))
+      orphanage_3 = Orphanage.create!(orphanage_valid_attributes.merge(:registered => false))
+
+      Orphanage.count.should == 3
+      Orphanage.registered.count.should == 2
     end
 
     it "should give orphanages belongs to the given city" do

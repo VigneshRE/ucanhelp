@@ -1,5 +1,6 @@
 ActiveAdmin.register Orphanage do
   scope :admin_verified
+  scope :registered
   controller do
     def update
       @orphanage = Orphanage.find(params[:id])

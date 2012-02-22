@@ -45,6 +45,15 @@ class OrphanagesController < ApplicationController
     end
   end
 
+  def register
+    orphanage = Orphanage.find(params[:id])
+    if orphanage.registration_password == params[:registration_password] and orphanage.update_attributes(:registered => true)
+      flash[:notice] = 'Registration is successfully done.'
+    else
+      flash[:notice] = 'Registration failed.'
+    end
+  end
+
   protected
   def collection
     @orphanages ||= end_of_association_chain.order("#{sort_column} #{sort_direction}").page params[:page]
