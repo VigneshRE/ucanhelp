@@ -1,4 +1,8 @@
 = form_tag login_login_path do |f|
-  = label_tag :secret_password
-  = password_field_tag :secret_password
+  .field
+    = label_tag :email
+    = text_field_tag :email
+  .field
+    = label_tag :secret_password
+    = password_field_tag :secret_password
   = submit_tag "Login"

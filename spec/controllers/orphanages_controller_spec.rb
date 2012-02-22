@@ -13,6 +13,7 @@ describe OrphanagesController do
 
   def set_session_password_for(orphanage)
     session[:secret_password] = orphanage.secret_password
+    session[:email] = orphanage.email
   end
 
   describe "GET index" do
@@ -123,7 +124,7 @@ describe OrphanagesController do
   end
 
   describe "secret password validation" do
-    it "should validate secret password with session password before editing an orphanage" do
+    it "should validate secret password with session password and email before editing an orphanage" do
       orphanage = Orphanage.create! valid_attributes
       put :update, :id => orphanage.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
       response.should redirect_to(orphanage_path(orphanage))
@@ -132,7 +133,7 @@ describe OrphanagesController do
 
     it "should not let you update an orphanage if the user is not logged in for that password" do
       orphanage_1 = Orphanage.create! valid_attributes
-      orphanage_2 = Orphanage.create! valid_attributes.merge(:secret_password => "some other password")
+      orphanage_2 = Orphanage.create! valid_attributes
       set_session_password_for(orphanage_2)
 
       put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
@@ -140,7 +141,21 @@ describe OrphanagesController do
       flash[:notice].should == "You dont have credentials in this orphanage"
     end
 
-    it "should not update the session secret password if orphanage gets updated" do
+    it "should not let you update an orphanage with same secret passwords but different email" do
+      orphanage_1 = Orphanage.create! valid_attributes.merge(:email => "email@one.com")
+      orphanage_1.secret_password = "some other password"
+      orphanage_1.save
+      orphanage_2 = Orphanage.create! valid_attributes.merge(:email => "email@two.com")
+      orphanage_2.secret_password = "some other password"
+      orphanage_2.save
+      set_session_password_for(orphanage_2)
+
+      put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
+      response.should redirect_to(orphanage_path(orphanage_1))
+      flash[:notice].should == "You dont have credentials in this orphanage"
+    end
+
+    it "should not update the session secret password using mass assignment if orphanage gets updated" do
       orphanage_1 = Orphanage.create! valid_attributes
       set_session_password_for(orphanage_1)
 

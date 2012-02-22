@@ -1,6 +1,36 @@
 %h1 Editing orphanage
+= form_for @orphanage do |f|
+  -if @orphanage.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@orphanage.errors.count, "error")} prohibited this orphanage from being saved:"
+      %ul
+        - @orphanage.errors.full_messages.each do |msg|
+          %li= msg
 
-= render 'form'
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :address
+    = f.text_field :address
+  .field
+    = f.label :city
+    = f.collection_select(:city, CityList.all, :to_s, :to_s)
+
+  .field
+    = f.label :nature
+    = f.text_field :nature
+  .field
+    = f.label :manager_name
+    = f.text_field :manager_name
+  .field
+    = f.label :account_details
+    = f.text_field :account_details
+  .field
+    = f.label :contact_number
+    = f.text_field :contact_number
+  .actions
+    = f.submit 'Save'
 
 = link_to 'Show', @orphanage
 \|

@@ -53,9 +53,9 @@ class OrphanagesController < ApplicationController
   private
   def validate_secret_password
     orphanage = Orphanage.find_by_id(params[:id])
-    if session[:secret_password].nil?
+    if session[:secret_password].nil? || session[:email].nil?
       redirect_to orphanage_path(orphanage), :notice => "Please login to do this action"
-    elsif session[:secret_password] != orphanage.secret_password
+    elsif session[:secret_password] != orphanage.secret_password or session[:email] != orphanage.email
       redirect_to orphanage_path(orphanage), :notice => "You dont have credentials in this orphanage"
     end
   end
