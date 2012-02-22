@@ -6,4 +6,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery/jquery-1.7.1.min
+//= require jquery/jquery-ui-1.8.17.custom.min
 //= require_tree .
+
+$(document).ready(function() {
+	initializeDates();
+});
+
+var initializeDates = function() {
+  $(".date").datepicker({dateFormat: 'yy-mm-dd', minDate: 0});
+};

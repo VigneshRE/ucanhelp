@@ -6,13 +6,13 @@ describe Need do
     Orphanage.delete_all
     Need.delete_all
   end
-  
+
   def orphanage_valid_attributes
     {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
 
   def need_valid_attributes
-    {:description => "very good need", :nature => "food related", :severity => "critical"}
+    {:description => "very good need", :nature => "food related", :severity => "critical", :deadline => Date.today}
   end
 
   describe "validations" do
@@ -20,10 +20,17 @@ describe Need do
     it { should validate_presence_of(:nature) }
     it { should validate_presence_of(:severity) }
     it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:deadline) }
 
     it "should validate presence of orphanage using a database level constarint" do
       need = Need.new(need_valid_attributes)
       expect { need.save }.should raise_error
+    end
+
+    it "should validate that deadline date is not in past" do
+      need = Need.new(need_valid_attributes.merge(:deadline => Date.yesterday))
+      need.should_not be_valid
+      need.errors[:deadline].should include "cannot be in past."
     end
   end
 

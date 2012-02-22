@@ -16,6 +16,7 @@
     %th= sortable "description", "Description"
     %th= sortable "nature", "Nature"
     %th= sortable "severity", "Severity"
+    %th= sortable "deadline", "Deadline"
     %th= sortable "status", "Status"
     %th
     %th
@@ -26,5 +27,6 @@
       %td= need.description
       %td= need.nature
       %td= need.severity
+      %td= need.deadline
       %td= need.status
       %td= link_to 'Show', orphanage_need_path(:orphanage_id => need.orphanage_id, :id => need.id)

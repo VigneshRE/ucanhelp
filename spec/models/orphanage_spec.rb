@@ -6,7 +6,7 @@ describe Orphanage do
   end
 
   def need_valid_attributes
-    {:description => "very good need", :nature => "food related", :severity => "critical"}
+    {:description => "very good need", :nature => "food related", :severity => "critical", :deadline => Date.today}
   end
 
   describe "validations" do

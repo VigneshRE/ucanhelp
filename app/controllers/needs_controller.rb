@@ -38,7 +38,7 @@ class NeedsController < InheritedResources::Base
   end
 
   def sort_column
-    Need.column_names.include?(params[:sort]) ? params[:sort] : "status"
+    Need.column_names.include?(params[:sort]) ? params[:sort] : "deadline"
   end
 
   def sort_direction

@@ -15,5 +15,8 @@
   .field
     = f.label :severity
     = f.collection_select(:severity, SeverityList.all, :to_s, :to_s)
+  .field
+    = f.label :deadline
+    = date_field(f, :deadline)
   .actions
     = f.submit 'Save'

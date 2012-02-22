@@ -5,7 +5,8 @@ class CreateNeeds < ActiveRecord::Migration
       t.string :description
       t.string :nature
       t.string :severity
-      t.string :status, :default => "Open"
+      t.string :status, :default => Need::OPEN
+      t.date :deadline
 
       t.timestamps
     end

@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20120220061013) do
     t.string   "nature"
     t.string   "severity"
     t.string   "status",       :default => "Open"
+    t.date     "deadline"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
