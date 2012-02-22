@@ -4,7 +4,7 @@ Ucanhelp::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   resources :needs, :only => [:index] do
-    resources :comments, :only => [:create, :destroy]
+    resources :comments, :only => [:create]
   end
 
   match 'login' => 'login#index', :via => :get

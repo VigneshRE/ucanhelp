@@ -34,6 +34,15 @@ describe Orphanage do
       orphanage = Orphanage.new(orphanage_valid_attributes.merge(:city => "chennai"))
       orphanage.should be_valid
     end
+
+    it "should validate that contact number is an integer" do
+      orphanage = Orphanage.new(orphanage_valid_attributes.merge(:contact_number => "delhi9.8"))
+      orphanage.should_not be_valid
+      orphanage.errors[:contact_number].should include("is not a number")
+      orphanage = Orphanage.new(orphanage_valid_attributes.merge(:contact_number => "9.88767"))
+      orphanage.should_not be_valid
+      orphanage.errors[:contact_number].should include("must be an integer")
+    end
   end
 
   describe "associated needs" do

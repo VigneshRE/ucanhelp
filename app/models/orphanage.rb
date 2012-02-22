@@ -4,6 +4,7 @@ class Orphanage < ActiveRecord::Base
   attr_accessible :name, :address, :city, :nature, :manager_name, :contact_number, :account_details, :email
   attr_accessible :name, :address, :city, :nature, :manager_name, :contact_number, :account_details, :email, :secret_password, :admin_verified, :as => :admin
   validates_presence_of :name, :address, :city, :nature, :manager_name, :contact_number, :account_details, :email, :secret_password
+  validates_numericality_of :contact_number, :only_integer => true
   validates :email, :email_format => true
   validate :valid_city_name
 

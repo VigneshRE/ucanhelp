@@ -5,4 +5,5 @@
   %b Comment:
   = comment.body
 %p
-  = link_to 'Destroy Comment', [comment.need, comment], :confirm => 'Are you sure?', :method => :delete
+  %b Created at:
+  = I18n.l comment.created_at, :format => :comment

@@ -28,11 +28,4 @@ describe CommentsController do
       response.should redirect_to(orphanage_need_path(:orphanage_id => @orphanage.id, :id => @need.id))
     end
   end
-
-  describe "destroy" do
-    it "should redirect to the corresponding need path" do
-      post :create, valid_attributes
-      response.should redirect_to(orphanage_need_path(:orphanage_id => @orphanage.id, :id => @need.id))
-    end
-  end
 end

@@ -226,6 +226,16 @@ describe OrphanagesController do
       flash[:notice].should == 'Secret password has been mailed to your email address successfully.'
     end
 
+    it "should not send secret password details if there are no orphanages for an email" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      orphanage_2 = Orphanage.create! valid_attributes
+      PasswordMailer.should_not_receive(:forgot_secret_password)
+
+      post :forgot_secret_password, :id => orphanage_1.id.to_s, :email => "no-orphaage-email@address.com"
+      response.should redirect_to(orphanage_path(orphanage_1))
+      flash[:notice].should == 'There are no orphanages associated with the given email.'
+    end
+
     it "should redirect to forgot secret password if email is not given" do
       orphanage_1 = Orphanage.create! valid_attributes
       orphanage_2 = Orphanage.create! valid_attributes

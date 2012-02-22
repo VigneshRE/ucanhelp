@@ -36,8 +36,12 @@ class OrphanagesController < ApplicationController
       redirect_to forgot_secret_password_orphanage_path(:id => params[:id]), :notice => 'Please provide a valid email address.'
     else
       orphanages = Orphanage.find_all_by_email(params[:email])
-      PasswordMailer.forgot_secret_password(orphanages).deliver if !orphanages.empty?
-      redirect_to orphanage_path(:id => params[:id]), :notice => 'Secret password has been mailed to your email address successfully.'
+      notice = 'There are no orphanages associated with the given email.'
+      if !orphanages.empty?
+        PasswordMailer.forgot_secret_password(orphanages).deliver
+        notice = 'Secret password has been mailed to your email address successfully.'
+      end
+      redirect_to orphanage_path(:id => params[:id]), :notice => notice
     end
   end
 
@@ -68,7 +72,7 @@ class OrphanagesController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
-  
+
   def valid_email(email)
     return false if !email
     return email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
