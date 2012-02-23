@@ -4,4 +4,4 @@ rvm:
 before_script:
   - "psql -c 'create database ucanhelp_test;' -U postgres"
   - "RAILS_ENV=ci rake db:migrate"
-script: "RAILS_ENV=ci rake spec"
+script: "RAILS_ENV=ci rake spec --trace"
