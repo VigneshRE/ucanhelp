@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Orphanage do
   before(:each) do
     Orphanage.delete_all
+    Need.delete_all
   end
   
   def orphanage_valid_attributes
