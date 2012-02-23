@@ -51,8 +51,8 @@ production:
   encoding: unicode
   database: ucanhelp_production
   pool: 5
-  username: ucanhelp
-  password:
+  username: postgres
+  password: password
 
 ci:
   adapter: postgresql
