@@ -1,3 +1,7 @@
+language: ruby
+rvm:
+  - 1.9.2
 before_script:
   - "psql -c 'create database ucanhelp_test;' -U postgres"
-  bundle exec rake db:migrate
+  - "RAILS_ENV=ci rake db:migrate"
+script: "RAILS_ENV=ci rake spec"

@@ -53,3 +53,8 @@ production:
   pool: 5
   username: ucanhelp
   password:
+
+ci:
+  adapter: postgresql
+  database: ucanhelp_test
+  username: postgres
