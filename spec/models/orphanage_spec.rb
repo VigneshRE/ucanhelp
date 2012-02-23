@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Orphanage do
+  before(:each) do
+    Orphanage.delete_all
+  end
+  
   def orphanage_valid_attributes
     {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
