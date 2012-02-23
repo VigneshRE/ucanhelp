@@ -37,7 +37,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug'
-group :test, :development do
+group :test, :development, :ci do
   gem "rspec-rails", "~> 2.6"
   gem 'shoulda-matchers'
 end
