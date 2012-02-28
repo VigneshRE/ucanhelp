@@ -1,18 +1,28 @@
 %html
   %head
     %title Ucanhelp
+    = csrf_meta_tags
+    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Kaushan+Script"
+    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Convergence"
+    = stylesheet_link_tag    "bootstrap/bootstrap"
     = stylesheet_link_tag    "application"
     = stylesheet_link_tag    "jquery/jquery-ui-1.8.17.custom"
+    = javascript_include_tag "bootstrap/bootstrap"
     = javascript_include_tag "application"
-    = csrf_meta_tags
   %body
-    = link_to "Home", root_path
-    = link_to "Orphanages", orphanages_path
-    = link_to "Needs", needs_path
-    - if logged_in
-      = link_to "LogOut", login_logout_path
-    - else
-      = link_to "Login", login_path
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %ul.nav
+            %li= link_to "Home", root_path
+            %li= link_to "Orphanages", orphanages_path
+            %li= link_to "Needs", needs_path
+          %ul.nav.pull-right
+            - if logged_in
+              %li= link_to "LogOut", login_logout_path
+            - else
+              %li= link_to "Login", login_path
     %p#notice= notice
-    
-  = yield
+    .container
+      .main-container
+        = yield
