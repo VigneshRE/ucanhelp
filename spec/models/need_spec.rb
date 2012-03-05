@@ -12,7 +12,7 @@ describe Need do
   end
 
   def need_valid_attributes
-    {:description => "very good need", :nature => "food related", :severity => "critical", :deadline => Date.today}
+    {:description => "a" * 250, :nature => "food related", :severity => "critical", :deadline => Date.today}
   end
 
   describe "validations" do
@@ -21,6 +21,18 @@ describe Need do
     it { should validate_presence_of(:severity) }
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:deadline) }
+
+    it "should have a minimum length of 50 chars" do
+      need = Need.new(need_valid_attributes.merge(:description => "a" * 49))
+      need.should be_invalid
+      need.errors[:description].should include("must be at least 50 characters.")
+    end
+
+    it "should have a maximum length of 250 chars" do
+      need = Need.new(need_valid_attributes.merge(:description => "a" * 251))
+      need.should be_invalid
+      need.errors[:description].should include("can have a maximum of only 250 characters.")
+    end
 
     it "should validate presence of orphanage using a database level constarint" do
       need = Need.new(need_valid_attributes)

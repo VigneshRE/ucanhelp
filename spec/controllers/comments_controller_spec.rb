@@ -15,7 +15,7 @@ describe CommentsController do
   end
 
   def need_valid_attributes
-    {:description => "very good need", :nature => "food related", :severity => "critical", :orphanage_id => @orphanage.id, :deadline => Date.today}
+    {:description => "a" * 250, :nature => "food related", :severity => "critical", :orphanage_id => @orphanage.id, :deadline => Date.today}
   end
 
   def valid_attributes
