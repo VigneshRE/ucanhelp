@@ -1,19 +1,19 @@
-= form_tag orphanages_path, :method => :get do
-  .field
-    = label_tag "admin_verified"
-    %br
+= form_tag orphanages_path, :method => :get, :class => [:well, :'form-inline'] do
+  %label{:for => "admin_verified", :class => :checkbox}
     = check_box_tag "admin_verified", true, params[:admin_verified] || false
-  .field
-    = label_tag "city"
-    %br
+    Admin Verified
+  %label{:for => 'city_name', :class => :checkbox}
+    City
     = collection_select("", "city_name", ["All"] + CityList.all, :to_s, :to_s, :selected => params[:city_name] || "All")
-  .actions
-    = submit_tag "Refine"
-    = link_to "Clear", orphanages_path
+  = submit_tag "Refine", :class => [:btn, :'btn-primary']
+  = link_to "Clear", orphanages_path, :class => :btn
+
+.alert
+  = "Got #{@orphanages.count} orphanages"
 
 %h1 Listing orphanages
 = paginate @orphanages
-%table.sortable-table
+%table.sortable-table.table.table-bordered
   %tr
     %th= sortable "name", "Name"
     %th= sortable "address", "Address"
@@ -43,4 +43,4 @@
 
 %br
 
-= link_to 'New Orphanage', new_orphanage_path
+= link_to 'New Orphanage', new_orphanage_path, :class => [:btn, :'btn-primary']

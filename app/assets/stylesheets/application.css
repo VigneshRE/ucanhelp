@@ -46,5 +46,15 @@ body {
 
 h1, h2 {
   font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 15px;
 }
 
+.divider-vertical {
+  display: inline-block;
+  background-color: #222222;
+  border-right: 1px solid #333333;
+  height: 40px;
+  margin: 0 9px;
+  overflow: hidden;
+  width: 1px;
+}

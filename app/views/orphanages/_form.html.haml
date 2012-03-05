@@ -1,35 +1,43 @@
-= form_for @orphanage do |f|
+= form_for @orphanage, :html => {:class => [:well, :'form-horizontal']} do |f|
   -if @orphanage.errors.any?
     #error_explanation
       %h2= "#{pluralize(@orphanage.errors.count, "error")} prohibited this orphanage from being saved:"
       %ul
         - @orphanage.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :address
-    = f.text_field :address
-  .field
-    = f.label :city
-    = f.collection_select(:city, CityList.all, :to_s, :to_s)
-
-  .field
-    = f.label :nature
-    = f.text_field :nature
-  .field
-    = f.label :manager_name
-    = f.text_field :manager_name
-  .field
-    = f.label :account_details
-    = f.text_field :account_details
-  .field
-    = f.label :contact_number
-    = f.text_field :contact_number
-  .field
-    = f.label :email
-    = f.text_field :email
-  .actions
-    = f.submit 'Save'
+  %fieldset
+    .control-group
+      = f.label :name, :class => :'control-label'
+      .controls
+        = f.text_field :name, :class => :'input-xlarge'
+    .control-group
+      = f.label :address, :class => :'control-label'
+      .controls
+        = f.text_field :address, :class => :'input-xlarge'
+    .control-group
+      = f.label :city, :class => :'control-label'
+      .controls
+        = f.collection_select(:city, CityList.all, :to_s, :to_s, {}, {:class => :'input-xlarge'})
+  %fieldset
+    .control-group
+      = f.label :nature, :class => :'control-label'
+      .controls
+        = f.text_field :nature, :class => :'input-xlarge'
+    .control-group
+      = f.label :manager_name, :class => :'control-label'
+      .controls
+        = f.text_field :manager_name, :class => :'input-xlarge'
+    .control-group
+      = f.label :account_details, :class => :'control-label'
+      .controls
+        = f.text_field :account_details, :class => :'input-xlarge'
+    .control-group
+      = f.label :contact_number, :class => :'control-label'
+      .controls
+        = f.text_field :contact_number, :class => :'input-xlarge'
+    .control-group
+      = f.label :email, :class => :'control-label'
+      .controls
+        = f.text_field :email, :class => :'input-xlarge'
+  .form-actions
+    = f.submit 'Save', :class => :'primary-btn'
