@@ -8,9 +8,6 @@
   = submit_tag "Refine", :class => [:btn, :'btn-primary']
   = link_to "Clear", orphanages_path, :class => :btn
 
-.alert
-  = "Got #{@orphanages.count} orphanages"
-
 %h1 Listing orphanages
 = paginate @orphanages
 %table.sortable-table.table.table-bordered

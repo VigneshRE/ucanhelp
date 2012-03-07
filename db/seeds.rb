@@ -10,7 +10,7 @@ def orphanage_valid_attributes
 end
 
 def need_valid_attributes
-  {:description => "a" * 250, :nature => "food related", :severity => "critical", :deadline => Date.today}
+  {:description => "ten chars " * 25, :nature => "food related", :severity => "critical", :deadline => Date.today}
 end
 
 puts "Deleting all needs.."
@@ -20,12 +20,14 @@ Orphanage.delete_all
 
 puts "Loading first 20 bangalore orphanages.."
 (1..20).each do |i|
-  Orphanage.create(orphanage_valid_attributes.merge(:name => "orphanage_#{i}"))
+  orphanage = Orphanage.new(orphanage_valid_attributes.merge(:name => "orphanage_#{i}"))
+  orphanage.save
 end
 
 puts "Loading second 20 chennai orphanages.."
 (21..40).each do |i|
-  Orphanage.create(orphanage_valid_attributes.merge(:name => "orphanage_#{i}", :city => "chennai"))
+  orphanage = Orphanage.new(orphanage_valid_attributes.merge(:name => "orphanage_#{i}", :city => "chennai"))
+  orphanage.save
 end
 
 puts "Updating secret passwords of orphanages to password.."
