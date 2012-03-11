@@ -1,6 +1,6 @@
 module ApplicationHelper
   def logged_in
-    session[:secret_password] != nil
+    session[:email] != nil and session[:secret_password] != nil
   end
 
   def date_field(f, name)

@@ -3,11 +3,14 @@
   .btn-toolbar
     .btn-group
       = link_to 'Back', orphanages_path, :class => :btn
+    -if logged_in
       = link_to 'Edit', edit_orphanage_path(@orphanage), :class => :btn
       = link_to 'Destroy', @orphanage, :confirm => 'Are you sure?', :method => :delete, :class => :btn
     .btn-group
       = link_to 'Needs', orphanage_needs_path(@orphanage), :class => :btn
+    -if logged_in
       = link_to 'New Need', new_orphanage_need_path(@orphanage), :class => :btn
+  -if logged_in
     .btn-group
       = link_to 'Change Password', change_secret_password_orphanage_path(@orphanage), :class => :btn
       = link_to 'Forgot Password', forgot_secret_password_orphanage_path(@orphanage), :class => :btn
