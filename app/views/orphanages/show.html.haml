@@ -1,41 +1,38 @@
-%p
-  %b Name:
-  = @orphanage.name
-%p
-  %b Address:
-  = @orphanage.address
-%p
-  %b City:
-  = @orphanage.city
-%p
-  %b Nature:
-  = @orphanage.nature
-%p
-  %b Manager Name:
-  = @orphanage.manager_name
-%p
-  %b Account Details:
-  = @orphanage.account_details
-%p
-  %b Contact Number:
-  = @orphanage.contact_number
-%p
-  %b Email:
-  = @orphanage.email
-%p
-  %b Admin Verified:
-  = @orphanage.admin_verified
+.container
+  %h2= @orphanage.name
+  .btn-toolbar
+    .btn-group
+      = link_to 'Back', orphanages_path, :class => :btn
+      = link_to 'Edit', edit_orphanage_path(@orphanage), :class => :btn
+      = link_to 'Destroy', @orphanage, :confirm => 'Are you sure?', :method => :delete, :class => :btn
+    .btn-group
+      = link_to 'Needs', orphanage_needs_path(@orphanage), :class => :btn
+      = link_to 'New Need', new_orphanage_need_path(@orphanage), :class => :btn
+    .btn-group
+      = link_to 'Change Password', change_secret_password_orphanage_path(@orphanage), :class => :btn
+      = link_to 'Forgot Password', forgot_secret_password_orphanage_path(@orphanage), :class => :btn
+  %p
+    %b Address:
+    = @orphanage.address
+  %p
+    %b City:
+    = @orphanage.city
+  %p
+    %b Nature:
+    = @orphanage.nature
+  %p
+    %b Manager Name:
+    = @orphanage.manager_name
+  %p
+    %b Account Details:
+    = @orphanage.account_details
+  %p
+    %b Contact Number:
+    = @orphanage.contact_number
+  %p
+    %b Email:
+    = @orphanage.email
+  %p
+    %b Admin Verified:
+    = @orphanage.admin_verified
 
-= link_to 'Needs', orphanage_needs_path(@orphanage)
-\|
-= link_to 'New Need', new_orphanage_need_path(@orphanage)
-\|
-= link_to 'Edit', edit_orphanage_path(@orphanage)
-\|
-= link_to 'Change Secret Password', change_secret_password_orphanage_path(@orphanage)
-\|
-= link_to 'Forgot Secret Password', forgot_secret_password_orphanage_path(@orphanage)
-\|
-= link_to 'Destroy', @orphanage, :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'Back', orphanages_path

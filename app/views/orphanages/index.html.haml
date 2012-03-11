@@ -1,43 +1,39 @@
-= form_tag orphanages_path, :method => :get, :class => [:well, :'form-inline'] do
-  %label{:for => "admin_verified", :class => :checkbox}
-    = check_box_tag "admin_verified", true, params[:admin_verified] || false
-    Admin Verified
-  %label{:for => 'city_name', :class => :checkbox}
-    City
-    = collection_select("", "city_name", ["All"] + CityList.all, :to_s, :to_s, :selected => params[:city_name] || "All")
-  = submit_tag "Refine", :class => [:btn, :'btn-primary']
-  = link_to "Clear", orphanages_path, :class => :btn
+.container
+  = form_tag orphanages_path, :method => :get, :class => [:well, :'form-inline'] do
+    %label{:for => "admin_verified", :class => :checkbox}
+      = check_box_tag "admin_verified", true, params[:admin_verified] || false
+      Admin Verified
+    %label{:for => 'city_name', :class => :checkbox}
+      City
+      = collection_select("", "city_name", ["All"] + CityList.all, :to_s, :to_s, :selected => params[:city_name] || "All")
+    = submit_tag "Refine", :class => [:btn, :'btn-primary']
+    = link_to "Clear", orphanages_path, :class => :btn
 
-%h1 Listing orphanages
-= paginate @orphanages
-%table.sortable-table.table.table-bordered
-  %tr
-    %th= sortable "name", "Name"
-    %th= sortable "address", "Address"
-    %th= sortable "city", "City"
-    %th= sortable "nature", "Nature"
-    %th= sortable "manager_name", "Manager Name"
-    %th= sortable "account_details", "Account Details"
-    %th= sortable "contact_number", "Contact Number"
-    %th= sortable "email", "Email"
-    %th= sortable "admin_verified", "Admin Verified"
-    %th
-    %th
-    %th
-
-  - @orphanages.each do |orphanage|
+.container
+  %h1 Listing orphanages
+  = paginate @orphanages
+  %table.sortable-table.table.table-bordered
     %tr
-      %td= orphanage.name
-      %td= orphanage.address
-      %td= orphanage.city
-      %td= orphanage.nature
-      %td= orphanage.manager_name
-      %td= orphanage.account_details
-      %td= orphanage.contact_number
-      %td= orphanage.email
-      %td= orphanage.admin_verified
-      %td= link_to 'Show', orphanage
+      %th= sortable "name", "Name"
+      %th= sortable "address", "Address"
+      %th= sortable "city", "City"
+      %th= sortable "nature", "Nature"
+      %th= sortable "manager_name", "Manager Name"
+      %th= sortable "account_details", "Account Details"
+      %th= sortable "contact_number", "Contact Number"
+      %th= sortable "email", "Email"
+      %th= sortable "admin_verified", "Admin Verified"
 
-%br
+    - @orphanages.each do |orphanage|
+      %tr
+        %td= link_to orphanage.name, orphanage
+        %td= orphanage.address
+        %td= orphanage.city
+        %td= orphanage.nature
+        %td= orphanage.manager_name
+        %td= orphanage.account_details
+        %td= orphanage.contact_number
+        %td= orphanage.email
+        %td= orphanage.admin_verified
 
-= link_to 'New Orphanage', new_orphanage_path, :class => [:btn, :'btn-primary']
+  = link_to 'New Orphanage', new_orphanage_path, :class => [:btn, :'btn-primary']

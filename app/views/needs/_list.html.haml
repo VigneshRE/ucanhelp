@@ -13,17 +13,18 @@
       .page-nav
         = paginate @needs
 
-  #needs-list.container
-    - @needs.each do |need|
-      .need{:class => need.status}
-        .need-info
-          .nature
-            Need Type:
-            = need.nature
-          .deadline
-            Deadline:
-            = need.deadline
-          .severity
-            = need.severity
-          .description
-            = link_to need.description, orphanage_need_path(:orphanage_id => need.orphanage_id, :id => need.id)
+  .container
+    .span12
+      #needs-list.container
+        - @needs.each do |need|
+          .need.well{:class => need.status}
+            .nature
+              Need Type:
+              = need.nature
+            .deadline
+              Deadline:
+              = I18n.l need.deadline, :format => :deadline
+            .severity
+              = need.severity
+            .description
+              = link_to need.description, orphanage_need_path(:orphanage_id => need.orphanage_id, :id => need.id)

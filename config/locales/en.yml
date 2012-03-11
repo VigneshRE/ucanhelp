@@ -7,4 +7,4 @@ en:
       deadline: "%d-%B-%Y"
   time:
     formats:
-      comment: "%d-%B-%Y %r"
+      comment: "%d-%B-%Y"

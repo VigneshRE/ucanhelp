@@ -1,9 +1,7 @@
-%p
-  %b Commenter:
-  = comment.commenter
-%p
-  %b Comment:
-  = comment.body
-%p
-  %b Created at:
-  = I18n.l comment.created_at, :format => :comment
+#comments-list.container
+  .comment.well
+    = comment.body
+    .comment-details
+      %span.commentator
+        = comment.commenter
+      = I18n.l comment.created_at, :format => :comment

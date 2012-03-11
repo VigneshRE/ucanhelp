@@ -1,29 +1,41 @@
-%p
-  %b Description:
-  = @need.description
-%p
-  %b Nature:
-  = @need.nature
-%p
-  %b Severity:
-  = @need.severity
-%p
-  %b Deadline:
-  = I18n.l @need.deadline, :format => :deadline
-%p
-  %b Status:
-  = @need.status
+%section.container
+  %h2 Need Details
+  #needs-list.container
+    .need{:class => @need.status}
+      .need-info
+        .nature
+          Need Type:
+          = @need.nature
+        .deadline
+          Deadline:
+          = I18n.l @need.deadline, :format => :deadline
+        .severity
+          = @need.severity
+        .description
+          = @need.description
+        .orphanage
+          %h4 Orphanage Detail
+          %h5= @need.orphanage.name
+          %p= @need.orphanage.nature
+          %p= @need.orphanage.city
+          %p= @need.orphanage.contact_number
+          %p
+            %span Verified?
+            = @need.orphanage.admin_verified
 
-%h2 Comments
-= render @need.comments
+%section.container
+  .btn-toolbar
+    .btn-group
+      = link_to 'Back', orphanage_needs_path(:orphanage_id => @need.orphanage_id), :class => :btn
+      = link_to 'Edit', edit_orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id), :class => :btn
+      = link_to 'Close Need', close_orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id), :class => :btn
+      = link_to 'Destroy', orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id), :confirm => 'Are you sure?', :method => :delete, :class => :btn
 
-%h2 Add a comment:
-= render "comments/form"
+%section.container
+  %h2 Comments
+  = render @need.comments
 
-= link_to 'Edit', edit_orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id)
-\|
-= link_to 'Close Need', close_orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id)
-\|
-= link_to 'Destroy', orphanage_need_path(:id => @need.id, :orphanage_id => @need.orphanage_id), :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'Back', orphanage_needs_path(:orphanage_id => @need.orphanage_id)
+  .well
+    %h3 Add a comment:
+    = render "comments/form"
+
