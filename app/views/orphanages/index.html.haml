@@ -9,31 +9,34 @@
     = submit_tag "Refine", :class => [:btn, :'btn-primary']
     = link_to "Clear", orphanages_path, :class => :btn
 
-.container
-  %h1 Listing orphanages
-  = paginate @orphanages
-  %table.sortable-table.table.table-bordered
-    %tr
-      %th= sortable "name", "Name"
-      %th= sortable "address", "Address"
-      %th= sortable "city", "City"
-      %th= sortable "nature", "Nature"
-      %th= sortable "manager_name", "Manager Name"
-      %th= sortable "account_details", "Account Details"
-      %th= sortable "contact_number", "Contact Number"
-      %th= sortable "email", "Email"
-      %th= sortable "admin_verified", "Admin Verified"
-
-    - @orphanages.each do |orphanage|
+- if @orphanages.empty?
+  ="There are no orphanages which matches your criteria."
+- else
+  .container
+    %h1 Listing orphanages
+    = paginate @orphanages
+    %table.sortable-table.table.table-bordered
       %tr
-        %td= link_to orphanage.name, orphanage
-        %td= orphanage.address
-        %td= orphanage.city
-        %td= orphanage.nature
-        %td= orphanage.manager_name
-        %td= orphanage.account_details
-        %td= orphanage.contact_number
-        %td= orphanage.email
-        %td= orphanage.admin_verified
-
-  = link_to 'New Orphanage', new_orphanage_path, :class => [:btn, :'btn-primary']
+        %th= sortable "name", "Name"
+        %th= sortable "address", "Address"
+        %th= sortable "city", "City"
+        %th= sortable "nature", "Nature"
+        %th= sortable "manager_name", "Manager Name"
+        %th= sortable "account_details", "Account Details"
+        %th= sortable "contact_number", "Contact Number"
+        %th= sortable "email", "Email"
+        %th= sortable "admin_verified", "Admin Verified"
+  
+      - @orphanages.each do |orphanage|
+        %tr
+          %td= link_to orphanage.name, orphanage
+          %td= orphanage.address
+          %td= orphanage.city
+          %td= orphanage.nature
+          %td= orphanage.manager_name
+          %td= orphanage.account_details
+          %td= orphanage.contact_number
+          %td= orphanage.email
+          %td= orphanage.admin_verified
+  
+    = link_to 'New Orphanage', new_orphanage_path, :class => [:btn, :'btn-primary']

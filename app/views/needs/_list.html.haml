@@ -16,6 +16,8 @@
   .container
     .span12
       #needs-list.container
+        - if @needs.empty?
+          ="There are no needs which matches your criteria."
         - @needs.each do |need|
           .need.well{:class => need.status}
             .nature
