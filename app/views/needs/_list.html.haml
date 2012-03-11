@@ -1,33 +1,29 @@
-%section
-  = form_tag needs_path, :method => :get do
-    .field
-      = label_tag "severity_type"
-      %br
-      = collection_select("", "severity_type", ["All"] + SeverityList.all, :to_s, :to_s, :selected => params[:severity_type] || "All")
-    .actions
-      = submit_tag "Refine"
-      = link_to "Clear", needs_path
+%section.container
+  .span12
+    %h1 Listing needs
+    = form_tag needs_path, :method => :get, :class => [:well, :'form-inline'] do
+      %label{:for => "severity_type", :class => :checkbox}
+        Severity
+        = collection_select("", "severity_type", ["All"] + SeverityList.all, :to_s, :to_s, :selected => params[:severity_type] || "All")
+      = submit_tag "Refine", :class => [:btn, :'btn-primary']
+      = link_to "Clear", needs_path, :class => :btn
 
-  %h1 Listing needs
-  .page-nav
-    = paginate @needs
+  .container
+    .span12
+      .page-nav
+        = paginate @needs
 
-  %table.sortable-table
-    %tr
-      %th= sortable "description", "Description"
-      %th= sortable "nature", "Nature"
-      %th= sortable "severity", "Severity"
-      %th= sortable "deadline", "Deadline"
-      %th= sortable "status", "Status"
-      %th
-      %th
-      %th
-
+  #needs-list.container
     - @needs.each do |need|
-      %tr
-        %td= need.description
-        %td= need.nature
-        %td= need.severity
-        %td= need.deadline
-        %td= need.status
-        %td= link_to 'Show', orphanage_need_path(:orphanage_id => need.orphanage_id, :id => need.id)
+      .need{:class => need.status}
+        .need-info
+          .nature
+            Need Type:
+            = need.nature
+          .deadline
+            Deadline:
+            = need.deadline
+          .severity
+            = need.severity
+          .description
+            = link_to need.description, orphanage_need_path(:orphanage_id => need.orphanage_id, :id => need.id)

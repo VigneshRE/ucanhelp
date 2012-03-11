@@ -40,8 +40,13 @@ body {
   background: #E0E8D0;
 }
 
+.span12 .well {
+  margin-right: 40px;
+}
+
 .well {
-  background: #EFF4E6
+  background: #EFF4E6;
+  margin-bottom: 10px;
 }
 
 h1, h2 {
@@ -57,4 +62,46 @@ h1, h2 {
   margin: 0 9px;
   overflow: hidden;
   width: 1px;
+}
+
+#needs-list .need {
+  background: url(/assets/needs.png) no-repeat scroll 10px 10px #EFF4E6;
+  clear: both;
+  overflow: hidden;
+  margin: 20px 20px 10px 20px;
+  padding: 10px;
+  position: relative;
+}
+
+.nature {
+  float: left;
+  display: block;
+  overflow: hidden;
+  color: #999;
+  margin-left: 50px;
+}
+
+.deadline, .severity {
+  float: right;
+  overflow: hidden;
+  color: #999;
+  position: absolute;
+  top: 10;
+  right: 125;
+}
+
+.severity {
+  color: #800000;
+  font-weight: bold;
+  right: 40;
+  text-align: right;
+}
+
+.description {
+  clear: both;
+  float: left;
+  display: block;
+  overflow: hidden;
+  margin-left: 50px;
+  margin-top: 5px;
 }
