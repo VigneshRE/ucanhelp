@@ -67,5 +67,15 @@ describe Need do
       Need.count.should == 3
       Need.severity_type("low").count.should == 1
     end
+
+    it "should give needs belong to the given deadline date" do
+      orphanage = Orphanage.create!(orphanage_valid_attributes)
+      need_1 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :deadline => Date.today))
+      need_2 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :deadline => Date.today))
+      need_3 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :deadline => Date.tomorrow))
+
+      Need.count.should == 3
+      Need.deadline_at(Date.tomorrow.to_s).count.should == 1
+    end
   end
 end
