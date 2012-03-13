@@ -22,10 +22,10 @@ describe Need do
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:deadline) }
 
-    it "should have a minimum length of 50 chars" do
-      need = Need.new(need_valid_attributes.merge(:description => "a" * 49))
+    it "should have a minimum length of 10 chars" do
+      need = Need.new(need_valid_attributes.merge(:description => "a" * 9))
       need.should be_invalid
-      need.errors[:description].should include("must be at least 50 characters.")
+      need.errors[:description].should include("must be at least 10 characters.")
     end
 
     it "should have a maximum length of 250 chars" do
@@ -66,6 +66,7 @@ describe Need do
 
       Need.count.should == 3
       Need.severity_type("low").count.should == 1
+      Need.severity_type("All").count.should == 3
     end
 
     it "should give needs belong to the given deadline date" do
@@ -86,6 +87,18 @@ describe Need do
 
       Need.count.should == 3
       Need.deadline_at(Date.tomorrow.to_s).count.should == 1
+    end
+
+    it "should give needs that are closed" do
+      orphanage = Orphanage.create!(orphanage_valid_attributes)
+      need_1 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id))
+      need_1.status = Need::CLOSED
+      need_1.save
+      need_2 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id))
+      need_3 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id))
+
+      Need.status_is(Need::CLOSED).count.should == 1
+      Need.status_is("All").count.should == 3
     end
   end
 end

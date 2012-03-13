@@ -5,12 +5,13 @@ class NeedsController < InheritedResources::Base
   has_scope :page, :default => 1
   has_scope :severity_type
   has_scope :deadline_at
+  has_scope :status_is
 
   def index
     if params[:orphanage_id]
       index!
     else
-      @needs = Need.severity_type(params[:severity_type]).deadline_at(params[:deadline_at]).order("#{sort_column} #{sort_direction}").page params[:page]
+      @needs = Need.severity_type(params[:severity_type]).deadline_at(params[:deadline_at]).status_is(params[:status_is]).order("#{sort_column} #{sort_direction}").page params[:page]
     end
   end
 
