@@ -3,6 +3,10 @@ module ApplicationHelper
     session[:email] != nil and session[:secret_password] != nil
   end
 
+  def current_user
+    {:email => session[:email], :secret_password => session[:secret_password]}
+  end
+  
   def date_field(f, name)
     f.text_field(name, :type => :date, :class => :date)
   end

@@ -19,7 +19,7 @@
             %li= link_to "Needs", needs_path
           %ul.nav.pull-right
             - if logged_in
-              %li= link_to "LogOut", login_logout_path
+              %li= link_to "Welcome #{current_user[:email]}, LogOut", login_logout_path
             - else
               %li= link_to "Login", login_path
     %p#notice= notice
