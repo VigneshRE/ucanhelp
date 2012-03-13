@@ -10,7 +10,7 @@ def orphanage_valid_attributes
 end
 
 def need_valid_attributes
-  {:description => "ten chars " * 25, :nature => "food related", :severity => "critical", :deadline => Date.today}
+  {:description => "ten chars " * 25, :nature => "Education", :severity => "critical", :deadline => Date.today}
 end
 
 puts "Deleting all needs.."

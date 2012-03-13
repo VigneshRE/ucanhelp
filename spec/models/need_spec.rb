@@ -12,7 +12,7 @@ describe Need do
   end
 
   def need_valid_attributes
-    {:description => "a" * 250, :nature => "food related", :severity => "critical", :deadline => Date.today}
+    {:description => "a" * 250, :nature => "Education", :severity => "critical", :deadline => Date.today}
   end
 
   describe "validations" do
@@ -43,6 +43,20 @@ describe Need do
       need = Need.new(need_valid_attributes.merge(:deadline => Date.yesterday))
       need.should_not be_valid
       need.errors[:deadline].should include "cannot be in past."
+    end
+
+    it "should validate that status should be either open or closed while updating it" do
+      orphanage = Orphanage.create!(orphanage_valid_attributes)
+      need = Need.create(need_valid_attributes.merge(:orphanage_id => orphanage.id))
+      need.status = "WrongStatus"
+      need.save
+      need.errors[:status].should include "should be either open or closed."
+    end
+
+    it "should validate that nature should be in the nature list" do
+      need = Need.new(need_valid_attributes.merge(:nature => "WrongNature"))
+      need.should_not be_valid
+      need.errors[:nature].should include "is invalid."
     end
   end
 
@@ -99,6 +113,16 @@ describe Need do
 
       Need.status_is(Need::CLOSED).count.should == 1
       Need.status_is("All").count.should == 3
+    end
+
+    it "should give needs whose nature is education" do
+      orphanage = Orphanage.create!(orphanage_valid_attributes)
+      need_1 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :nature => "Education"))
+      need_2 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :nature => "Rehabilitation"))
+      need_3 = Need.create!(need_valid_attributes.merge(:orphanage_id => orphanage.id, :nature => "Rehabilitation"))
+
+      Need.nature_is("Education").count.should == 1
+      Need.nature_is("All").count.should == 3
     end
   end
 end
