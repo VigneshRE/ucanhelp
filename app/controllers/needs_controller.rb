@@ -16,7 +16,8 @@ class NeedsController < InheritedResources::Base
 
   def close
     need = Need.find(params[:id])
-    if need.update_attributes(:status => Need::CLOSED)
+    need.status = Need::CLOSED
+    if need.save
       redirect_to orphanage_need_path(:id => need.id, :orphanage_id => need.orphanage_id), :notice => "Need status successfully changed."
     else
       redirect_to orphanage_need_path(:id => need.id, :orphanage_id => need.orphanage_id), :notice => "Could not change Need status."

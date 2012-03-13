@@ -1,4 +1,6 @@
 class Need < ActiveRecord::Base
+  attr_accessible :description, :nature, :severity, :deadline, :orphanage_id
+  attr_accessible :status, :as => :orphanage_admin
   OPEN = "Open"
   CLOSED = "Closed"
   has_many :comments

@@ -162,7 +162,7 @@ describe NeedsController do
     it "should send a notice if need status change fails" do
       need = Need.create! valid_attributes
       need.status.should == Need::OPEN
-      Need.any_instance.stub(:update_attributes).and_return(false)
+      Need.any_instance.stub(:save).and_return(false)
       get :close, :id => need.id.to_s, :orphanage_id => @orphanage.id
       response.should redirect_to(orphanage_need_path(:id => need.id, :orphanage_id => @orphanage.id))
       flash[:notice].should == "Could not change Need status."
