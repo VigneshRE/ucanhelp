@@ -285,6 +285,16 @@ describe OrphanagesController do
 
       get :register, :id => orphanage_1.id.to_s, :registration_password => "invalid_registration_password"
       response.should be_ok
+      flash[:notice].should == 'Registration password mismatch.'
+      orphanage_1.reload.registered.should be_false
+    end
+
+    it "should not send a notice if the orphanage registration failed" do
+      orphanage_1 = Orphanage.create! valid_attributes
+      Orphanage.any_instance.stub(:save).and_return(false)
+
+      get :register, :id => orphanage_1.id.to_s, :registration_password => orphanage_1.registration_password
+      response.should be_ok
       flash[:notice].should == 'Registration failed.'
       orphanage_1.reload.registered.should be_false
     end

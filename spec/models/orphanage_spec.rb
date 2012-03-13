@@ -5,7 +5,7 @@ describe Orphanage do
     Orphanage.delete_all
     Need.delete_all
   end
-  
+
   def orphanage_valid_attributes
     {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
@@ -127,8 +127,13 @@ describe Orphanage do
     end
 
     it "should give only registered orphanages" do
-      orphanage_1 = Orphanage.create!(orphanage_valid_attributes.merge(:registered => true))
-      orphanage_2 = Orphanage.create!(orphanage_valid_attributes.merge(:registered => true))
+      orphanage_1 = Orphanage.create!(orphanage_valid_attributes)
+      orphanage_2 = Orphanage.create!(orphanage_valid_attributes)
+      orphanage_1.registered = true
+      orphanage_1.save
+      orphanage_2.registered = true
+      orphanage_2.save
+
       orphanage_3 = Orphanage.create!(orphanage_valid_attributes.merge(:registered => false))
 
       Orphanage.count.should == 3

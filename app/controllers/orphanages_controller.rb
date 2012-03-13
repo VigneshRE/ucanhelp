@@ -47,10 +47,15 @@ class OrphanagesController < ApplicationController
 
   def register
     orphanage = Orphanage.find(params[:id])
-    if orphanage.registration_password == params[:registration_password] and orphanage.update_attributes(:registered => true)
-      flash[:notice] = 'Registration is successfully done.'
+    if orphanage.registration_password == params[:registration_password]
+      orphanage.registered = true
+      if orphanage.save
+        flash[:notice] = 'Registration is successfully done.'
+      else
+        flash[:notice] = 'Registration failed.'
+      end
     else
-      flash[:notice] = 'Registration failed.'
+      flash[:notice] = 'Registration password mismatch.'
     end
   end
 
