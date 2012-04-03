@@ -6,6 +6,9 @@
     %label{:for => 'city_name', :class => :checkbox}
       City
       = collection_select("", "city_name", ["All"] + CityList.all, :to_s, :to_s, :selected => params[:city_name] || "All")
+    %label{:for => 'nature_is', :class => :checkbox}
+      Nature
+      = collection_select("", "nature_is", ["All"] + OrphanageNatureList.all, :to_s, :to_s, :selected => params[:nature_is] || "All")
     = submit_tag "Refine", :class => [:btn, :'btn-primary']
     = link_to "Clear", orphanages_path, :class => :btn
 

@@ -19,7 +19,7 @@ class Need < ActiveRecord::Base
   end
 
   def valid_nature
-    self.errors.add(:nature, "is invalid.") if self.nature and !(NatureList.all.include?(self.nature))
+    self.errors.add(:nature, "is invalid.") if self.nature and !(NeedNatureList.all.include?(self.nature))
   end
 
   def valid_status

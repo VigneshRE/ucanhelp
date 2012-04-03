@@ -8,7 +8,7 @@ describe OrphanagesController do
   end
 
   def valid_attributes
-    {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
+    {:name => "orphanage-1", :nature => OrphanageNatureList.all.first, :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
 
   def set_session_password_for(orphanage)
@@ -159,7 +159,7 @@ describe OrphanagesController do
       orphanage_1 = Orphanage.create! valid_attributes
       set_session_password_for(orphanage_1)
 
-      put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new_nature", :secret_password => "new_password")
+      put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:address => "new_address", :secret_password => "new_password")
       response.should redirect_to(orphanage_path(orphanage_1))
       session[:secret_password].should_not == "new_password"
       orphanage_1.nature.should_not == "new_nature"

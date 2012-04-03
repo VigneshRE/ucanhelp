@@ -11,7 +11,7 @@ describe CommentsController do
   end
 
   def orphanage_valid_attributes
-    {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
+    {:name => "orphanage-1", :nature => OrphanageNatureList.all.first, :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
 
   def need_valid_attributes

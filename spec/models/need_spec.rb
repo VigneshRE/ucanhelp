@@ -8,7 +8,7 @@ describe Need do
   end
 
   def orphanage_valid_attributes
-    {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
+    {:name => "orphanage-1", :nature => OrphanageNatureList.all.first, :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
 
   def need_valid_attributes
@@ -53,7 +53,7 @@ describe Need do
       need.errors[:status].should include "should be either open or closed."
     end
 
-    it "should validate that nature should be in the nature list" do
+    it "should validate that nature should be in the need nature list" do
       need = Need.new(need_valid_attributes.merge(:nature => "WrongNature"))
       need.should_not be_valid
       need.errors[:nature].should include "is invalid."

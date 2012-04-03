@@ -7,7 +7,7 @@ describe Orphanage do
   end
 
   def orphanage_valid_attributes
-    {:name => "orphanage-1", :nature => "old age", :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
+    {:name => "orphanage-1", :nature => OrphanageNatureList.all.first, :address => "address 1", :city => "bangalore", :manager_name => "mgr", :contact_number => "0807766554", :account_details => "sbi acc", :email => "email@address.com"}
   end
 
   def need_valid_attributes
@@ -47,6 +47,12 @@ describe Orphanage do
       orphanage = Orphanage.new(orphanage_valid_attributes.merge(:contact_number => "9.88767"))
       orphanage.should_not be_valid
       orphanage.errors[:contact_number].should include("must be an integer")
+    end
+
+    it "should validate that nature should be in the orphanage nature list" do
+      orphanage = Orphanage.new(orphanage_valid_attributes.merge(:nature => "WrongNature"))
+      orphanage.should_not be_valid
+      orphanage.errors[:nature].should include "is invalid."
     end
   end
 
@@ -156,6 +162,24 @@ describe Orphanage do
 
       Orphanage.count.should == 3
       Orphanage.city_name("All").count.should == 3
+    end
+
+    it "should give orphanages belongs to the given nature" do
+      orphanage_1 = Orphanage.create!(orphanage_valid_attributes.merge(:nature => OrphanageNatureList.all.first))
+      orphanage_2 = Orphanage.create!(orphanage_valid_attributes.merge(:nature => OrphanageNatureList.all.first))
+      orphanage_3 = Orphanage.create!(orphanage_valid_attributes.merge(:nature => OrphanageNatureList.all[1]))
+
+      Orphanage.count.should == 3
+      Orphanage.nature_is(OrphanageNatureList.all.first).count.should == 2
+    end
+
+    it "should give all orphanages if the given nature is All" do
+      orphanage_1 = Orphanage.create!(orphanage_valid_attributes.merge(:nature => OrphanageNatureList.all.first))
+      orphanage_2 = Orphanage.create!(orphanage_valid_attributes.merge(:nature => OrphanageNatureList.all.first))
+      orphanage_3 = Orphanage.create!(orphanage_valid_attributes.merge(:nature => OrphanageNatureList.all[1]))
+
+      Orphanage.count.should == 3
+      Orphanage.nature_is("All").count.should == 3
     end
   end
 end

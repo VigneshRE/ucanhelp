@@ -22,7 +22,7 @@
     .control-group
       = f.label :nature, :class => :'control-label'
       .controls
-        = f.text_field :nature, :class => :'input-xlarge'
+        = f.collection_select(:nature, OrphanageNatureList.all, :to_s, :to_s, {}, {:class => :'input-xlarge'})
     .control-group
       = f.label :manager_name, :class => :'control-label'
       .controls

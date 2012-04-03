@@ -8,7 +8,7 @@
         Status
         = collection_select("", "status_is", ["All"] + Need.status_list, :to_s, :to_s, :selected => params[:status_is] || "All")
         Nature
-        = collection_select("", "nature_is", ["All"] + NatureList.all, :to_s, :to_s, :selected => params[:nature_is] || "All")
+        = collection_select("", "nature_is", ["All"] + NeedNatureList.all, :to_s, :to_s, :selected => params[:nature_is] || "All")
       %label{:for => "deadline", :class => :checkbox}
         Deadline at:
         = text_field_tag(:deadline_at, params[:deadline_at], :type => :date, :class => :date)
