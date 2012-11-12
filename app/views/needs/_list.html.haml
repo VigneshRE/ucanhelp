@@ -1,19 +1,29 @@
 %section.container
   .span12
     %h1 Listing needs
-    = form_tag needs_path, :method => :get, :class => [:well, :'form-inline'] do
-      %label{:for => "severity_type", :class => :checkbox}
-        Severity
-        = collection_select("", "severity_type", ["All"] + SeverityList.all, :to_s, :to_s, :selected => params[:severity_type] || "All")
-        Status
-        = collection_select("", "status_is", ["All"] + Need.status_list, :to_s, :to_s, :selected => params[:status_is] || "All")
-        Nature
-        = collection_select("", "nature_is", ["All"] + NeedNatureList.all, :to_s, :to_s, :selected => params[:nature_is] || "All")
-      %label{:for => "deadline", :class => :checkbox}
-        Deadline at:
-        = text_field_tag(:deadline_at, params[:deadline_at], :type => :date, :class => :date)
-      = submit_tag "Refine", :class => [:btn, :'btn-primary']
-      = link_to "Clear", needs_path, :class => :btn
+    = form_tag needs_path, :method => :get, :class => [:well, :''] do
+      .row-fluid
+        .span4
+          %label{:for => "severity_type"}
+            Severity
+          = collection_select("", "severity_type", ["All"] + SeverityList.all, :to_s, :to_s, :selected => params[:severity_type] || "All")
+        .span4
+          %label{:for => "status_is"}
+            Status
+          = collection_select("", "status_is", ["All"] + Need.status_list, :to_s, :to_s, :selected => params[:status_is] || "All")
+        .span4
+          %label{:for => "nature_is"}
+            Nature
+          = collection_select("", "nature_is", ["All"] + NeedNatureList.all, :to_s, :to_s, :selected => params[:nature_is] || "All")
+      .row-fluid
+        .span4
+          %label{:for => "deadline_at"}
+            Deadline at:
+          = text_field_tag(:deadline_at, params[:deadline_at], :type => :date, :class => :date)
+        .span4
+          .pull-down
+            = submit_tag "Refine", :class => [:btn, :'btn-primary']
+            = link_to "Clear", needs_path, :class => :btn
 
   .container
     .span12

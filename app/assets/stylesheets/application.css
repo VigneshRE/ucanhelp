@@ -123,3 +123,7 @@ h1, h2 {
 #comments-list .comment-details .commentator {
   font-weight: bold;
 }
+
+.pull-down {
+    margin-top: 21px;
+}
