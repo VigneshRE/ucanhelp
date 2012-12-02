@@ -5,6 +5,8 @@ gem 'rails', '3.1.3'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+# For prod environment as of now
+gem 'mysql2'
 gem 'pg'
 gem "haml-rails"
 gem 'json'
@@ -12,7 +14,7 @@ gem 'inherited_resources'
 gem 'activeadmin'
 gem "kaminari"
 gem "has_scope"
-
+gem "capistrano"
 
 # Moving sass-rails out of assets group because of rake db:migrate failure in travis CI
 gem 'sass-rails',   '~> 3.1.5'

@@ -47,12 +47,12 @@ test:
   password: password
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: ucanhelp_production
+  adapter: mysql
+  database: ucanhelp
   pool: 5
-  username: postgres
-  password: password
+  username: veetwo
+  password: 12345678
+  host: 127.0.0.1
 
 ci:
   adapter: postgresql
