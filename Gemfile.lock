@@ -205,7 +205,7 @@ DEPENDENCIES
   jquery-rails
   json
   kaminari
-  libv8 (~> 3.11.8)
+  libv8
   mysql2
   pg
   rails (= 3.1.3)
