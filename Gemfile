@@ -10,7 +10,10 @@ group :production do
   gem 'mysql2'
 end
 
-gem 'pg'
+group :development, :test do
+  gem 'pg'
+end
+
 gem "haml-rails"
 gem 'json'
 gem 'inherited_resources'
