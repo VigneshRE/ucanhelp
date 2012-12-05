@@ -27,3 +27,4 @@ role :db,  "senthilvkumar.com"
 #   end
 # end
 load 'deploy/assets'
+require "bundler/capistrano"

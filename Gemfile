@@ -6,7 +6,10 @@ gem 'rails', '3.1.3'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # For prod environment as of now
-gem 'mysql2'
+group :production do
+  gem 'mysql2'
+end
+
 gem 'pg'
 gem "haml-rails"
 gem 'json'
