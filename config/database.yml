@@ -51,7 +51,7 @@ production:
   database: ucanhelp
   pool: 5
   username: veetwo
-  password: 12345678
+  password: "12345678"
   host: localhost
 
 ci:
