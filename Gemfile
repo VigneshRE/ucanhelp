@@ -8,8 +8,6 @@ gem 'rails', '3.1.3'
 # For prod environment as of now
 group :production do
   gem 'mysql2'
-  gem 'libv8', '~> 3.3.10.4'
-  gem "therubyracer"
 end
 
 group :development, :test do
