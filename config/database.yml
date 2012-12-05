@@ -52,7 +52,7 @@ production:
   pool: 5
   username: veetwo
   password: 12345678
-  host: 127.0.0.1
+  host: localhost
 
 ci:
   adapter: postgresql
