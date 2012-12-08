@@ -8,6 +8,7 @@ gem 'rails', '3.1.3'
 # For prod environment as of now
 group :production do
   gem 'mysql2'
+  gem 'passenger'
 end
 
 group :development, :test do
