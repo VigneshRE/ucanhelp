@@ -1,3 +1,6 @@
+set :default_environment, {
+  'PATH' => "/home/action/.rvm/rubies/ruby-1.9.3-p374/bin/:$PATH"
+}
 set :application, "ucanhelp"
 set :repository,  "git@github.com:VigneshRE/ucanhelp.git"
 
@@ -37,6 +40,3 @@ end
 
 load 'deploy/assets'
 require "bundler/capistrano"
-set :default_environment, {
-  'PATH' => "/home/action/.rvm/rubies/ruby-1.9.3-p374/bin/:$PATH"
-}
