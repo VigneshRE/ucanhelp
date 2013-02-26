@@ -3,7 +3,7 @@ set :repository,  "git@github.com:VigneshRE/ucanhelp.git"
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :deploy_to, "/home/veetwo/apps"
+set :deploy_to, "/home/action/apps"
 set :user, "action"
 set :port, 12472
 set :use_sudo, false
