@@ -1,3 +1,6 @@
+require "rvm/capistrano"
+require "bundler/capistrano"
+
 set :application, "ucanhelp"
 set :repository,  "git@github.com:VigneshRE/ucanhelp.git"
 
