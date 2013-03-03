@@ -36,4 +36,5 @@ namespace :deploy do
 end
 
 load 'deploy/assets'
-require "bundler/capistrano"
+# require "rvm/capistrano"
+# require "bundler/capistrano"
