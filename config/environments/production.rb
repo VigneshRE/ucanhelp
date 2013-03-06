@@ -57,4 +57,16 @@ Ucanhelp::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  # set delivery method to :smtp, :sendmail or :test
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'ucanhelp.com',
+    :user_name            => 'ucanhelp',
+    :password             => 'ucanhelp',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
+  # these options are only needed if you choose smtp delivery
 end
