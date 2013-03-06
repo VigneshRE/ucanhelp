@@ -35,6 +35,10 @@ namespace :deploy do
   end
 end
 
+set :default_environment, { "PATH" =>
+"$HOME/.nvm/v0.8.11/bin:$PATH"
+}
+
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require "rvm/capistrano"
 require 'bundler/capistrano'
