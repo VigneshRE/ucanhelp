@@ -6,15 +6,16 @@ gem 'rails', '3.2.11'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # For prod environment as of now
-group :production do
-  gem 'mysql2'
-  gem 'passenger'
-end
+# group :production do
+#   gem 'mysql2'
+#   gem 'passenger'
+# end
 
-group :development, :test do
-  gem 'pg'
-end
+# group :development, :test do
+#   gem 'pg'
+# end
 
+gem 'pg'
 gem "haml-rails"
 gem 'json'
 gem 'inherited_resources'
