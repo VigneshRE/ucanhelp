@@ -63,7 +63,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.5.0)
+    coffee-script-source (1.4.0)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -196,6 +196,7 @@ DEPENDENCIES
   activeadmin
   capistrano
   coffee-rails (~> 3.2.1)
+  coffee-script-source (~> 1.4.0)
   haml-rails
   has_scope
   inherited_resources

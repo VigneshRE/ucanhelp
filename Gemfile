@@ -24,6 +24,9 @@ gem "kaminari"
 gem "has_scope"
 gem "capistrano"
 
+#For active admin issue
+gem 'coffee-script-source', '~> 1.4.0'
+
 # Moving sass-rails out of assets group because of rake db:migrate failure in travis CI
 gem 'sass-rails', "~> 3.2.3"
 
