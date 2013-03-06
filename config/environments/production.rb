@@ -65,8 +65,8 @@ Ucanhelp::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'ucanhelp.com',
-    :user_name            => 'ucanhelp',
-    :password             => 'ucanhelp',
+    :user_name            => 'ucanhelptesting',
+    :password             => 'ucanhelptesting',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
   # these options are only needed if you choose smtp delivery
