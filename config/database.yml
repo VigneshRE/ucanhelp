@@ -47,11 +47,10 @@ test:
   password: password
 
 production:
-  adapter: mysql2
+  adapter: postgresql
   database: ucanhelp
   pool: 5
-  username: veetwo
-  password: "12345678"
+  username: action
   host: "127.0.0.1"
 
 ci:
