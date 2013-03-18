@@ -15,7 +15,7 @@ class OrphanagesController < ApplicationController
     respond_to do |format|
       if params[:new_password] == "" or params[:confirmed_new_password] == "" or params[:new_password] != params[:confirmed_new_password]
         format.html  do
-          flash.now[:notice] = 'New password did not match with new confirmed password.'
+          flash.now[:alert] = 'New password did not match with new confirmed password.'
           render :action => "change_secret_password"
         end
       elsif @orphanage.update_attributes({:secret_password => params[:new_password]}, :as => :admin)
@@ -53,10 +53,10 @@ class OrphanagesController < ApplicationController
       if orphanage.save
         flash[:notice] = 'Registration is successfully done.'
       else
-        flash[:notice] = 'Registration failed.'
+        flash[:alert] = 'Registration failed.'
       end
     else
-      flash[:notice] = 'Registration password mismatch.'
+      flash[:alert] = 'Registration password mismatch.'
     end
   end
 
@@ -69,9 +69,9 @@ class OrphanagesController < ApplicationController
   def validate_secret_password
     orphanage = Orphanage.find_by_id(params[:id])
     if session[:secret_password].nil? || session[:email].nil?
-      redirect_to orphanage_path(orphanage), :notice => "Please login to do this action"
+      redirect_to orphanage_path(orphanage), :alert => "Please login to do this action"
     elsif session[:secret_password] != orphanage.secret_password or session[:email] != orphanage.email
-      redirect_to orphanage_path(orphanage), :notice => "You dont have credentials in this orphanage"
+      redirect_to orphanage_path(orphanage), :alert => "You dont have credentials in this orphanage"
     end
   end
 

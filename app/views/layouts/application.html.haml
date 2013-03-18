@@ -22,7 +22,8 @@
               %li= link_to "Welcome #{current_user[:email]}, LogOut", login_logout_path
             - else
               %li= link_to "Login", login_path
-    %p#notice= notice
     .container
+      %p#notice= notice
+      %p#alert= alert
       .main-container
         = yield

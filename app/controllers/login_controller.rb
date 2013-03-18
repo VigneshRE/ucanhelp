@@ -5,7 +5,7 @@ class LoginController < ApplicationController
 
   def login
     if input_is_invalid
-      flash.now[:notice] = "Password or Email is in invalid format."
+      flash.now[:alert] = "Password or Email is in invalid format."
       render :action => :index
       return
     end

@@ -22,7 +22,7 @@ class NeedsController < InheritedResources::Base
     if need.save
       redirect_to orphanage_need_path(:id => need.id, :orphanage_id => need.orphanage_id), :notice => "Need status successfully changed."
     else
-      redirect_to orphanage_need_path(:id => need.id, :orphanage_id => need.orphanage_id), :notice => "Could not change Need status."
+      redirect_to orphanage_need_path(:id => need.id, :orphanage_id => need.orphanage_id), :alert => "Could not change Need status."
     end
   end
 
@@ -35,9 +35,9 @@ class NeedsController < InheritedResources::Base
   def validate_secret_password
     orphanage = Orphanage.find_by_id(params[:orphanage_id])
     if session[:secret_password].nil?
-      redirect_to :back, :notice => "Please login to do this action"
+      redirect_to :back, :alert => "Please login to do this action"
     elsif session[:secret_password] != orphanage.secret_password
-      redirect_to :back, :notice => "You dont have credentials in this orphanage"
+      redirect_to :back, :alert => "You dont have credentials in this orphanage"
     end
   end
 
