@@ -71,3 +71,4 @@ Ucanhelp::Application.configure do
     :enable_starttls_auto => true  }
   # these options are only needed if you choose smtp delivery
 end
+
