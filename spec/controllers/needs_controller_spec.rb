@@ -145,7 +145,7 @@ describe NeedsController do
       }.not_to change(Need, :count).by(1)
 
       response.should redirect_to(:back)
-      flash[:notice].should == "You dont have credentials in this orphanage"
+      flash[:alert].should == "You dont have credentials in this orphanage"
     end
   end
 
@@ -165,7 +165,7 @@ describe NeedsController do
       Need.any_instance.stub(:save).and_return(false)
       get :close, :id => need.id.to_s, :orphanage_id => @orphanage.id
       response.should redirect_to(orphanage_need_path(:id => need.id, :orphanage_id => @orphanage.id))
-      flash[:notice].should == "Could not change Need status."
+      flash[:alert].should == "Could not change Need status."
       need.reload.status.should == Need::OPEN
     end
   end

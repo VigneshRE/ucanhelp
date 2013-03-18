@@ -9,7 +9,7 @@ describe LoginController do
       session[:email].should be_nil
       response.should_not redirect_to(:back)
       response.should render_template(:index)
-      flash[:notice].should == "Password or Email is in invalid format."
+      flash[:alert].should == "Password or Email is in invalid format."
     end
   end
 

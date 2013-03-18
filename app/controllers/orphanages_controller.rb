@@ -34,15 +34,15 @@ class OrphanagesController < ApplicationController
   def forgot_secret_password
     return unless request.post?
     if !valid_email(params[:email])
-      redirect_to forgot_secret_password_orphanage_path(:id => params[:id]), :notice => 'Please provide a valid email address.'
+      redirect_to forgot_secret_password_orphanage_path(:id => params[:id]), :alert => 'Please provide a valid email address.'
     else
       orphanages = Orphanage.find_all_by_email(params[:email])
-      notice = 'There are no orphanages associated with the given email.'
+      alert = 'There are no orphanages associated with the given email.'
       if !orphanages.empty?
         PasswordMailer.forgot_secret_password(orphanages).deliver
         notice = 'Secret password has been mailed to your email address successfully.'
       end
-      redirect_to orphanage_path(:id => params[:id]), :notice => notice
+      redirect_to orphanage_path(:id => params[:id]), :notice => notice, :alert => alert
     end
   end
 

@@ -128,7 +128,7 @@ describe OrphanagesController do
       orphanage = Orphanage.create! valid_attributes
       put :update, :id => orphanage.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
       response.should redirect_to(orphanage_path(orphanage))
-      flash[:notice].should == "Please login to do this action"
+      flash[:alert].should == "Please login to do this action"
     end
 
     it "should not let you update an orphanage if the user is not logged in for that password" do
@@ -138,7 +138,7 @@ describe OrphanagesController do
 
       put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
       response.should redirect_to(orphanage_path(orphanage_1))
-      flash[:notice].should == "You dont have credentials in this orphanage"
+      flash[:alert].should == "You dont have credentials in this orphanage"
     end
 
     it "should not let you update an orphanage with same secret passwords but different email" do
@@ -152,7 +152,7 @@ describe OrphanagesController do
 
       put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
       response.should redirect_to(orphanage_path(orphanage_1))
-      flash[:notice].should == "You dont have credentials in this orphanage"
+      flash[:alert].should == "You dont have credentials in this orphanage"
     end
 
     it "should not update the session secret password using mass assignment if orphanage gets updated" do
@@ -205,7 +205,7 @@ describe OrphanagesController do
       set_session_password_for(orphanage_1)
 
       post :change_secret_password, :id => orphanage_1.id.to_s, :new_password => "new_password", :confirmed_new_password => "new_password_1"
-      flash[:notice].should == 'New password did not match with new confirmed password.'
+      flash[:alert].should == 'New password did not match with new confirmed password.'
       session[:secret_password].should_not == "new_password"
     end
 
@@ -214,7 +214,7 @@ describe OrphanagesController do
       set_session_password_for(orphanage_1)
 
       post :change_secret_password, :id => orphanage_1.id.to_s, :new_password => "", :confirmed_new_password => ""
-      flash[:notice].should == 'New password did not match with new confirmed password.'
+      flash[:alert].should == 'New password did not match with new confirmed password.'
       session[:secret_password].should_not == "new_password"
     end
 
@@ -248,7 +248,7 @@ describe OrphanagesController do
 
       post :forgot_secret_password, :id => orphanage_1.id.to_s, :email => "no-orphaage-email@address.com"
       response.should redirect_to(orphanage_path(orphanage_1))
-      flash[:notice].should == 'There are no orphanages associated with the given email.'
+      flash[:alert].should == 'There are no orphanages associated with the given email.'
     end
 
     it "should redirect to forgot secret password if email is not given" do
@@ -257,7 +257,7 @@ describe OrphanagesController do
 
       post :forgot_secret_password, :id => orphanage_1.id.to_s
       response.should redirect_to(forgot_secret_password_orphanage_path(orphanage_1))
-      flash[:notice].should == 'Please provide a valid email address.'
+      flash[:alert].should == 'Please provide a valid email address.'
     end
 
     it "should redirect to forgot secret password if email is not in the valid format" do
@@ -266,7 +266,7 @@ describe OrphanagesController do
 
       post :forgot_secret_password, :id => orphanage_1.id.to_s, :email => "invalid_email_format"
       response.should redirect_to(forgot_secret_password_orphanage_path(orphanage_1))
-      flash[:notice].should == 'Please provide a valid email address.'
+      flash[:alert].should == 'Please provide a valid email address.'
     end
   end
 
@@ -285,7 +285,7 @@ describe OrphanagesController do
 
       get :register, :id => orphanage_1.id.to_s, :registration_password => "invalid_registration_password"
       response.should be_ok
-      flash[:notice].should == 'Registration password mismatch.'
+      flash[:alert].should == 'Registration password mismatch.'
       orphanage_1.reload.registered.should be_false
     end
 
@@ -295,7 +295,7 @@ describe OrphanagesController do
 
       get :register, :id => orphanage_1.id.to_s, :registration_password => orphanage_1.registration_password
       response.should be_ok
-      flash[:notice].should == 'Registration failed.'
+      flash[:alert].should == 'Registration failed.'
       orphanage_1.reload.registered.should be_false
     end
   end
