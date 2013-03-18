@@ -40,4 +40,4 @@
     = render "comments/form"
 %label
   Share this in facebook
-  = link_to image_tag('facebook.gif'), 'http://www.facebook.com/sharer.php?u='+request.env["REQUEST_URI"], :target => :blank
+  = link_to image_tag('facebook.gif'), 'http://www.facebook.com/sharer.php?u='+url_for(:only_path => false), :target => :blank
