@@ -11,7 +11,7 @@
     = f.text_field :description
   .field
     = f.label :nature
-    = f.text_field :nature
+    = f.collection_select(:nature, NeedNatureList.all, :to_s, :to_s)
   .field
     = f.label :severity
     = f.collection_select(:severity, SeverityList.all, :to_s, :to_s)
