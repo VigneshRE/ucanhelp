@@ -10,7 +10,7 @@ class ActionView::Helpers::FormBuilder
     end
 
     required_mark = ''
-    required_mark = ' *'.html_safe if object.class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
+    required_mark = ' *'.html_safe if object.class.method_defined?(method) and object.class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
 
     content ||= method.to_s.humanize
     content = content + required_mark
