@@ -34,9 +34,9 @@ class NeedsController < InheritedResources::Base
   private
   def validate_secret_password
     orphanage = Orphanage.find_by_id(params[:orphanage_id])
-    if session[:secret_password].nil?
+    if session[:secret_password].nil? or session[:email].nil?
       redirect_to :back, :alert => "Please login to do this action"
-    elsif session[:secret_password] != orphanage.secret_password
+    elsif session[:secret_password] != orphanage.secret_password or session[:email] != orphanage.email
       redirect_to :back, :alert => "You dont have credentials in this orphanage"
     end
   end

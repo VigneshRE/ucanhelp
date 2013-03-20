@@ -22,6 +22,7 @@ describe NeedsController do
 
   def set_session_password_for(orphanage)
     session[:secret_password] = orphanage.secret_password
+    session[:email] = orphanage.email
   end
 
   describe "GET index" do
@@ -135,13 +136,31 @@ describe NeedsController do
   end
 
   describe "secret password validation" do
-    it "should not allow a need to be created if the secret password validation fails" do
+    it "should consider session password should be same as secret password" do
       orphanage_2 = Orphanage.create(orphanage_valid_attributes.merge(:secret_password => "some other password"))
       set_session_password_for(orphanage_2)
       request.env['HTTP_REFERER'] = "http://test.host" + orphanage_needs_path(@orphanage)
 
       expect {
-        post :create, :need => valid_attributes, :orphanage_id => @orphanage.id, :secret_password => "some wrong value"
+        post :create, :need => valid_attributes, :orphanage_id => @orphanage.id, :secret_password => @orphanage.secret_password
+      }.not_to change(Need, :count).by(1)
+
+      response.should redirect_to(:back)
+      flash[:alert].should == "You dont have credentials in this orphanage"
+    end
+
+    it "should consider session email should be same as orphanage email even though session password matches with orphanage password" do
+      orphanage_1 = Orphanage.create! orphanage_valid_attributes.merge(:email => "email@one.com")
+      orphanage_1.secret_password = "same password"
+      orphanage_1.save
+      orphanage_2 = Orphanage.create! orphanage_valid_attributes.merge(:email => "email@two.com")
+      orphanage_2.secret_password = "same password"
+      orphanage_2.save
+      set_session_password_for(orphanage_2)
+      request.env['HTTP_REFERER'] = "http://test.host" + orphanage_needs_path(@orphanage)
+
+      expect {
+        post :create, :need => valid_attributes, :orphanage_id => orphanage_1.id, :secret_password => orphanage_2.secret_password
       }.not_to change(Need, :count).by(1)
 
       response.should redirect_to(:back)
