@@ -138,7 +138,7 @@ describe OrphanagesController do
 
       put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
       response.should redirect_to(orphanage_path(orphanage_1))
-      flash[:alert].should == "You dont have credentials in this orphanage"
+      flash[:alert].should == "You dont have credentials in this care taking home"
     end
 
     it "should not let you update an orphanage with same secret passwords but different email" do
@@ -152,7 +152,7 @@ describe OrphanagesController do
 
       put :update, :id => orphanage_1.id.to_s, :orphanage => valid_attributes.merge(:nature => "new age")
       response.should redirect_to(orphanage_path(orphanage_1))
-      flash[:alert].should == "You dont have credentials in this orphanage"
+      flash[:alert].should == "You dont have credentials in this care taking home"
     end
 
     it "should not update the session secret password using mass assignment if orphanage gets updated" do
@@ -248,7 +248,7 @@ describe OrphanagesController do
 
       post :forgot_secret_password, :id => orphanage_1.id.to_s, :email => "no-orphaage-email@address.com"
       response.should redirect_to(orphanage_path(orphanage_1))
-      flash[:alert].should == 'There are no orphanages associated with the given email.'
+      flash[:alert].should == 'There are no care taking homes associated with the given email.'
     end
 
     it "should redirect to forgot secret password if email is not given" do

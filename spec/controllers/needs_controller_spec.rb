@@ -146,7 +146,7 @@ describe NeedsController do
       }.not_to change(Need, :count).by(1)
 
       response.should redirect_to(:back)
-      flash[:alert].should == "You dont have credentials in this orphanage"
+      flash[:alert].should == "You dont have credentials in this care taking home"
     end
 
     it "should consider session email should be same as orphanage email even though session password matches with orphanage password" do
@@ -164,7 +164,7 @@ describe NeedsController do
       }.not_to change(Need, :count).by(1)
 
       response.should redirect_to(:back)
-      flash[:alert].should == "You dont have credentials in this orphanage"
+      flash[:alert].should == "You dont have credentials in this care taking home"
     end
   end
 
