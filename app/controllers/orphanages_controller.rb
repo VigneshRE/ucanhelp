@@ -51,12 +51,12 @@ class OrphanagesController < ApplicationController
     if orphanage.registration_password == params[:registration_password]
       orphanage.registered = true
       if orphanage.save
-        flash[:notice] = 'Registration is successfully done.'
+        flash.now[:notice] = 'Registration is successfully done.'
       else
-        flash[:alert] = 'Registration failed.'
+        flash.now[:alert] = 'Registration failed.'
       end
     else
-      flash[:alert] = 'Registration password mismatch.'
+      flash.now[:alert] = 'Registration password mismatch.'
     end
   end
 
