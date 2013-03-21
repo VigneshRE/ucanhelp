@@ -1,7 +1,7 @@
 = form_for @orphanage, :html => {:class => [:well, :'form-horizontal']} do |f|
   -if @orphanage.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@orphanage.errors.count, "error")} prohibited this orphanage from being saved:"
+      %h2= "#{pluralize(@orphanage.errors.count, "error")} prohibited this care taking home from being saved:"
       %ul
         - @orphanage.errors.full_messages.each do |msg|
           %li= msg

@@ -13,10 +13,10 @@
     = link_to "Clear", orphanages_path, :class => :btn
 
 - if @orphanages.empty?
-  ="There are no orphanages which matches your criteria."
+  ="There are no care taking homes which matches your criteria."
 - else
   .container
-    %h1 Listing orphanages
+    %h1 Listing care taking homes
     = paginate @orphanages
     %table.sortable-table.table.table-bordered
       %tr
@@ -42,4 +42,4 @@
           %td= orphanage.email
           %td= orphanage.admin_verified
   
-= link_to 'New Orphanage', new_orphanage_path, :class => [:btn, :'btn-primary']
+= link_to 'New Care Taking Home', new_orphanage_path, :class => [:btn, :'btn-primary']

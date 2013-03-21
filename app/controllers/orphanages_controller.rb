@@ -37,7 +37,7 @@ class OrphanagesController < ApplicationController
       redirect_to forgot_secret_password_orphanage_path(:id => params[:id]), :alert => 'Please provide a valid email address.'
     else
       orphanages = Orphanage.find_all_by_email(params[:email])
-      alert = 'There are no orphanages associated with the given email.'
+      alert = 'There are no care taking homes associated with the given email.'
       if !orphanages.empty?
         PasswordMailer.forgot_secret_password(orphanages).deliver
         notice = 'Secret password has been mailed to your email address successfully.'
@@ -71,7 +71,7 @@ class OrphanagesController < ApplicationController
     if session[:secret_password].nil? or session[:email].nil?
       redirect_to orphanage_path(orphanage), :alert => "Please login to do this action"
     elsif session[:secret_password] != orphanage.secret_password or session[:email] != orphanage.email
-      redirect_to orphanage_path(orphanage), :alert => "You dont have credentials in this orphanage"
+      redirect_to orphanage_path(orphanage), :alert => "You dont have credentials in this care taking home"
     end
   end
 

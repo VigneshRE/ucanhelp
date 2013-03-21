@@ -37,7 +37,7 @@ class NeedsController < InheritedResources::Base
     if session[:secret_password].nil? or session[:email].nil?
       redirect_to :back, :alert => "Please login to do this action"
     elsif session[:secret_password] != orphanage.secret_password or session[:email] != orphanage.email
-      redirect_to :back, :alert => "You dont have credentials in this orphanage"
+      redirect_to :back, :alert => "You dont have credentials in this care taking home"
     end
   end
 
