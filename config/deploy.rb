@@ -36,7 +36,7 @@ namespace :deploy do
 end
 
 set :default_environment, { "PATH" =>
-"$HOME/.nvm/v0.8.11/bin:$PATH"
+"$HOME/nodejs/node-v0.10.1-linux-x64/bin:$PATH"
 }
 
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
