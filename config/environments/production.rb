@@ -43,7 +43,7 @@ Ucanhelp::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += ["bootstrap/bootstrap.js", "jquery/jquery-1.7.1.min.js", "jquery/jquery-ui-1.8.custom.min.js", "bootstrap/bootstrap.css", "jquery/jquery-ui-1.8.17.custom.css" ]
+  config.assets.precompile += ["bootstrap/bootstrap.js", "jquery/jquery-1.7.1.min.js", "jquery/jquery-ui-1.8.custom.min.js", "bootstrap/bootstrap.css", "jquery/jquery-ui-1.8.17.custom.css", "active_admin.css", "active_admin.js"]
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
