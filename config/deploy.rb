@@ -3,15 +3,18 @@ set :repository,  "git@github.com:VigneshRE/ucanhelp.git"
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :deploy_to, "/home/action/apps"
-set :user, "action"
-set :port, 12472
+set :deploy_to, "/home/ec2-user/apps"
+set :user, "ec2-user"
+set :port, 22
 set :use_sudo, false
+ssh_options[:forward_agent] = true
+ssh_options[:auth_methods] = ["publickey"]
+ssh_options[:keys] = ["/Users/vigneshr/Desktop/ucanhelp.pem"]
 
-role :web, "apse1.actionbox.io"                          # Your HTTP server, Apache/etc
-role :app, "apse1.actionbox.io"                          # This may be the same as your `Web` server
-role :db,  "apse1.actionbox.io", :primary => true # This is where Rails migrations will run
-role :db,  "apse1.actionbox.io"
+role :web, "ec2-54-244-75-143.us-west-2.compute.amazonaws.com"                          # Your HTTP server, Apache/etc
+role :app, "ec2-54-244-75-143.us-west-2.compute.amazonaws.com"                          # This may be the same as your `Web` server
+role :db,  "ec2-54-244-75-143.us-west-2.compute.amazonaws.com", :primary => true # This is where Rails migrations will run
+role :db,  "ec2-54-244-75-143.us-west-2.compute.amazonaws.com"
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"

@@ -15,7 +15,7 @@ gem 'rails', '3.2.11'
 #   gem 'pg'
 # end
 
-gem 'pg'
+# gem 'pg'
 gem "haml-rails"
 gem 'json'
 gem 'inherited_resources'
