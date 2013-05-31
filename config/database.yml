@@ -50,7 +50,7 @@ production:
   adapter: postgresql
   database: ucanhelp
   pool: 5
-  username: action
+  username: ec2-user
   host: "127.0.0.1"
 
 ci:
