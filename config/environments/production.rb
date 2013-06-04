@@ -61,6 +61,9 @@ Ucanhelp::Application.configure do
   # set delivery method to :smtp, :sendmail or :test
   config.action_mailer.default_url_options = { :host => 'ucanhelp-2416.apse1.actionbox.io:3000' }
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
