@@ -59,7 +59,7 @@ Ucanhelp::Application.configure do
   config.active_support.deprecation = :notify
   
   # set delivery method to :smtp, :sendmail or :test
-  config.action_mailer.default_url_options = { :host => 'ucanhelp-2416.apse1.actionbox.io:3000' }
+  config.action_mailer.default_url_options = { :host => 'ucanhelp.in' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
